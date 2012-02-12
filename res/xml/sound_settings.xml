@@ -27,6 +27,11 @@
 	<PreferenceCategory android:key="general_category"
 		android:title="@string/general_title">
 
+                <!-- Enable bootsound -->
+                <CheckBoxPreference android:key="pref_enable_bootsound"
+			android:title="@string/pref_enable_bootsound_title"
+			android:summary="@string/pref_enable_bootsound_play_summary" />
+
 		<CheckBoxPreference android:key="notif-focus"
 			android:title="@string/sound_notifications_focus_title"
 			android:summary="@string/sound_notifications_focus_summary"
@@ -38,7 +43,6 @@
 			android:summary="@string/sound_volume_control_silent_summary"
 			android:persistent="false" />
 
-
 		<ListPreference android:key="swap-vol-keys"
 			android:title="@string/sound_swap_volume_keys_title"
 			android:dialogTitle="@string/sound_swap_volume_keys_dialog"
@@ -46,8 +50,8 @@
 			android:entryValues="@array/swap_volume_keys_orientation_list_values"
 			android:persistent="false" />
 
-        <!-- Vibrate on call -->
-		<CheckBoxPreference android:key="vibrate-in-call"
+                <!-- Vibrate on call -->
+  		<CheckBoxPreference android:key="vibrate-in-call"
 			android:title="@string/sound_vibrate_in_call_title"
 			android:summaryOn="@string/sound_vibrate_in_call_summary_on"
 			android:summaryOff="@string/sound_vibrate_in_call_summary_off"
