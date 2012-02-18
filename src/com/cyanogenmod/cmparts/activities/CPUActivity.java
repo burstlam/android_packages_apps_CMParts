@@ -19,6 +19,8 @@ package com.cyanogenmod.cmparts.activities;
 import com.cyanogenmod.cmparts.R;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -26,6 +28,7 @@ import android.preference.PreferenceScreen;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -35,6 +38,11 @@ import java.io.IOException;
 //
 public class CPUActivity extends PreferenceActivity implements
         Preference.OnPreferenceChangeListener {
+
+    public static final String FREQ_CUR_PREF = "pref_cpu_freq_cur";
+    public static final String SCALE_CUR_FILE = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
+    public static final String FREQINFO_CUR_FILE = "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq";
+    private static String FREQ_CUR_FILE = SCALE_CUR_FILE;
 
     public static final String GOV_PREF = "pref_cpu_gov";
     public static final String GOVERNORS_LIST_FILE = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors";
@@ -52,9 +60,38 @@ public class CPUActivity extends PreferenceActivity implements
     private String mMinFrequencyFormat;
     private String mMaxFrequencyFormat;
 
+    private Preference mCurFrequencyPref;
     private ListPreference mGovernorPref;
     private ListPreference mMinFrequencyPref;
     private ListPreference mMaxFrequencyPref;
+
+    private class CurCPUThread extends Thread {
+        private boolean mInterrupt = false;
+
+        public void interrupt() {
+            mInterrupt = true;
+        }
+
+        @Override
+        public void run() {
+            try {
+                while (!mInterrupt) {
+                    sleep(500);
+                    final String curFreq = readOneLine(FREQ_CUR_FILE);
+                    mCurCPUHandler.sendMessage(mCurCPUHandler.obtainMessage(0, curFreq));
+               }
+            } catch (InterruptedException e) {
+            }
+        }
+    };
+
+    private CurCPUThread mCurCPUThread = new CurCPUThread();
+	
+    private Handler mCurCPUHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            mCurFrequencyPref.setSummary(toMHz((String) msg.obj));
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +133,15 @@ public class CPUActivity extends PreferenceActivity implements
             PrefScreen.removePreference(mGovernorPref);
         }
 
+        if (!fileExists(FREQ_CUR_FILE)) {
+            FREQ_CUR_FILE = FREQINFO_CUR_FILE;
+        }
+
+        temp = readOneLine(FREQ_CUR_FILE);
+
+        mCurFrequencyPref = (Preference) PrefScreen.findPreference(FREQ_CUR_PREF);
+        mCurFrequencyPref.setSummary(toMHz(temp));
+
         temp = readOneLine(FREQ_MIN_FILE);
 
         mMinFrequencyPref = (ListPreference) PrefScreen.findPreference(MIN_FREQ_PREF);
@@ -105,6 +151,10 @@ public class CPUActivity extends PreferenceActivity implements
         mMinFrequencyPref.setSummary(String.format(mMinFrequencyFormat, toMHz(temp)));
         mMinFrequencyPref.setOnPreferenceChangeListener(this);
 
+        if (temp == null) {
+            PrefScreen.removePreference(mMinFrequencyPref);
+        }
+
         temp = readOneLine(FREQ_MAX_FILE);
 
         mMaxFrequencyPref = (ListPreference) PrefScreen.findPreference(MAX_FREQ_PREF);
@@ -113,6 +163,18 @@ public class CPUActivity extends PreferenceActivity implements
         mMaxFrequencyPref.setValue(temp);
         mMaxFrequencyPref.setSummary(String.format(mMaxFrequencyFormat, toMHz(temp)));
         mMaxFrequencyPref.setOnPreferenceChangeListener(this);
+
+        if (temp == null) {
+            PrefScreen.removePreference(mMaxFrequencyPref);
+        }
+
+        if (availableFrequenciesLine == null) {
+            mMinFrequencyPref.setEnabled(false);
+            mMaxFrequencyPref.setEnabled(false);
+        }
+	
+        mCurCPUThread.start();
+
     }
 
     @Override
@@ -131,6 +193,16 @@ public class CPUActivity extends PreferenceActivity implements
 
         temp = readOneLine(GOVERNOR);
         mGovernorPref.setSummary(String.format(mGovernorFormat, temp));
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mCurCPUThread.interrupt();
+        try {
+            mCurCPUThread.join();
+        } catch (InterruptedException e) {
+        }
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -194,6 +266,10 @@ public class CPUActivity extends PreferenceActivity implements
             return false;
         }
         return true;
+    }
+
+    public static boolean fileExists(String filename) {
+        return new File(filename).exists();
     }
 
     private String toMHz(String mhzString) {
