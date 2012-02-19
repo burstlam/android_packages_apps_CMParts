@@ -18,12 +18,14 @@ package com.cyanogenmod.cmparts.activities;
 
 import com.cyanogenmod.cmparts.R;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.util.Log;
 
@@ -49,6 +51,7 @@ public class CPUActivity extends PreferenceActivity implements
     public static final String GOVERNOR = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
     public static final String MIN_FREQ_PREF = "pref_freq_min";
     public static final String MAX_FREQ_PREF = "pref_freq_max";
+    public static final String SO_MAX_FREQ_PREF = "pref_screenoff_freq_max";
     public static final String FREQ_LIST_FILE = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";
     public static final String FREQ_MAX_FILE = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
     public static final String FREQ_MIN_FILE = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq";
@@ -59,11 +62,13 @@ public class CPUActivity extends PreferenceActivity implements
     private String mGovernorFormat;
     private String mMinFrequencyFormat;
     private String mMaxFrequencyFormat;
+    private String mMaxSoFrequencyFormat;
 
     private Preference mCurFrequencyPref;
     private ListPreference mGovernorPref;
     private ListPreference mMinFrequencyPref;
     private ListPreference mMaxFrequencyPref;
+    private ListPreference mMaxSoFrequencyPref;
 
     private class CurCPUThread extends Thread {
         private boolean mInterrupt = false;
@@ -97,9 +102,11 @@ public class CPUActivity extends PreferenceActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         mGovernorFormat = getString(R.string.cpu_governors_summary);
         mMinFrequencyFormat = getString(R.string.cpu_min_freq_summary);
         mMaxFrequencyFormat = getString(R.string.cpu_max_freq_summary);
+        mMaxSoFrequencyFormat = getString(R.string.screenoff_cpu_max_freq_summary);
 
         String[] availableGovernors = readOneLine(GOVERNORS_LIST_FILE).split(" ");
         String[] availableFrequencies = new String[0];
@@ -173,6 +180,19 @@ public class CPUActivity extends PreferenceActivity implements
             mMaxFrequencyPref.setEnabled(false);
         }
 	
+        temp = readOneLine(FREQ_MAX_FILE);
+
+        mMaxSoFrequencyPref = (ListPreference) PrefScreen.findPreference(SO_MAX_FREQ_PREF);
+        mMaxSoFrequencyPref.setEntryValues(availableFrequencies);
+        mMaxSoFrequencyPref.setEntries(frequencies);
+        mMaxSoFrequencyPref.setValue(temp);
+        mMaxSoFrequencyPref.setSummary(String.format(mMaxSoFrequencyFormat, toMHz(temp)));
+        mMaxSoFrequencyPref.setOnPreferenceChangeListener(this);
+
+        if (temp == null) {
+            PrefScreen.removePreference(mMaxSoFrequencyPref);
+        }
+
         mCurCPUThread.start();
 
     }
@@ -215,6 +235,8 @@ public class CPUActivity extends PreferenceActivity implements
                 fname = FREQ_MIN_FILE;
             } else if (preference == mMaxFrequencyPref) {
                 fname = FREQ_MAX_FILE;
+            } else if (preference == mMaxSoFrequencyPref) {
+                fname = FREQ_MAX_FILE;
             }
 
             if (writeOneLine(fname, (String) newValue)) {
@@ -225,6 +247,9 @@ public class CPUActivity extends PreferenceActivity implements
                             toMHz((String) newValue)));
                 } else if (preference == mMaxFrequencyPref) {
                     mMaxFrequencyPref.setSummary(String.format(mMaxFrequencyFormat,
+                            toMHz((String) newValue)));
+                } else if (preference == mMaxSoFrequencyPref) {
+                    mMaxSoFrequencyPref.setSummary(String.format(mMaxSoFrequencyFormat,
                             toMHz((String) newValue)));
                 }
                 return true;
@@ -273,6 +298,8 @@ public class CPUActivity extends PreferenceActivity implements
     }
 
     private String toMHz(String mhzString) {
+        if (mhzString == null)
+            return "-";
         return new StringBuilder().append(Integer.valueOf(mhzString) / 1000).append(" MHz").toString();
     }
 }
