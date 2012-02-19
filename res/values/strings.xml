@@ -675,14 +675,11 @@
     <string name="sound_vibrate_in_call_summary_on">Notifications will vibrate normally</string>
     <string name="sound_lock_volume_keys_title">Lock volume keys</string>
     <string name="sound_lock_volume_keys_summary">Prevents accidental unset of silent mode by pressing volume keys</string>
-<<<<<<< HEAD
     <string name="sound_default_volume_media_title">Default volume media</string>
     <string name="sound_default_volume_media_summary">Make volume control default to media instead of ringer</string>
-=======
     <string name="sound_volume_key_beeps_title">Volume key beeps</string>
     <string name="sound_volume_key_beeps_summary_off">Do not beep after changing the ringer volume using the volume keys</string>
     <string name="sound_volume_key_beeps_summary_on">Beep after changing the ringer volume using the volume keys</string>
->>>>>>> 2883528... add option to disable volume key beep sounds (1/2)
     <string name="sound_camera_shutter_disable_title">Mute camera shutter</string>
     <string name="sound_camera_shutter_disable_summary_on">Shutter sound will not be played</string>
     <string name="sound_camera_shutter_disable_summary_off">Shutter sound will be played</string>
@@ -880,5 +877,10 @@
     <string name="sound_flipping_down_snoozes_alarm_summary">No responsibility for being fired!</string>
     <string name="sound_call_me_louder_title">Call Me Louder</string>
     <string name="sound_call_me_louder_summary">Louder ringer when phone is inside bags</string>
+
+    <!-- Performance : GMAPS hack -->
+    <string name="pref_gmaps_hack_title">GMAPS hack</string>
+    <string name="pref_gmaps_hack_summary">Make NetworkLocationService killable. Frees some RAM, but Latitude isn\'t reporting location any more (requires reboot)</string>
+
 
 </resources>
