@@ -2,8 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- General settings -->
-    <PreferenceCategory android:key="general_category"
-        android:title="@string/general_title">
+    <PreferenceCategory android:title="@string/kernel_title">
 
         <PreferenceScreen android:key="cpu_settings" android:title="@string/cpu_title" android:summary="@string/cpu_summary">
             <intent android:action="android.intent.action.MAIN"
@@ -16,6 +15,9 @@
             android:title="@string/pref_sd_readahead_title" android:summary="@string/pref_iosched_summary"
             android:entries="@array/entries_iosched"
             android:entryValues="@array/values_iosched" />
+    </PreferenceCategory>
+
+      <PreferenceCategory android:title="@string/mem_title">
 
         <ListPreference android:key="pref_compcache_size"
             android:dialogTitle="@string/pref_compcache_title"
@@ -52,6 +54,22 @@
         <CheckBoxPreference android:key="pref_jit_mode"
             android:title="@string/pref_jit_mode_title" android:summary="@string/pref_jit_mode_summary" />
 
+        <ListPreference android:key="pref_heapsize"
+            android:dialogTitle="@string/pref_heapsize_title"
+            android:title="@string/pref_heapsize_title" android:summary="@string/pref_heapsize_summary"
+            android:entries="@array/entries_heapsize"
+            android:entryValues="@array/values_heapsize" />
+
+        <ListPreference android:key="pref_sdcard"
+            android:dialogTitle="@string/pref_sd_readahead_title"
+            android:title="@string/pref_sd_readahead_title" android:summary="@string/pref_sd_readahead_summary"
+            android:entries="@array/entries_sd_readahead"
+            android:entryValues="@array/values_sd_readahead" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/misc_title">
+
         <CheckBoxPreference android:key="pref_use_dithering"
             android:title="@string/pref_use_dithering_title"
             android:summary="@string/pref_use_dithering_summary" />
@@ -84,19 +102,6 @@
         <CheckBoxPreference android:key="pref_gmaps_hack"
             android:dialogTitle="@string/pref_gmaps_hack_title"
             android:title="@string/pref_gmaps_hack_title" android:summary="@string/pref_gmaps_hack_summary" />
-
-        <ListPreference android:key="pref_heapsize"
-            android:dialogTitle="@string/pref_heapsize_title"
-            android:title="@string/pref_heapsize_title" android:summary="@string/pref_heapsize_summary"
-            android:entries="@array/entries_heapsize"
-            android:entryValues="@array/values_heapsize" />
-
-        <ListPreference android:key="pref_sdcard"
-            android:dialogTitle="@string/pref_sd_readahead_title"
-            android:title="@string/pref_sd_readahead_title" android:summary="@string/pref_sd_readahead_summary"
-            android:entries="@array/entries_sd_readahead"
-            android:entryValues="@array/values_sd_readahead" />
-
     </PreferenceCategory>
 
 </PreferenceScreen>
