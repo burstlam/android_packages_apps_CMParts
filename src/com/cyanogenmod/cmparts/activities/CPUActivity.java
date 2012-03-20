@@ -241,7 +241,7 @@ public class CPUActivity extends PreferenceActivity implements
             } else if (preference == mMaxSoFrequencyPref) {
                 mMaxSoFrequencyPref.setSummary(String.format(mMaxSoFrequencyFormat,
                         toMHz((String) newValue)));
-                return true;;
+                return true;
             }
 
             if (writeOneLine(fname, (String) newValue)) {

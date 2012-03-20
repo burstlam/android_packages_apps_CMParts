@@ -120,7 +120,13 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
 
     private static final int LOCK_MMS_DEFAULT = 0;
 
-    public static final String SDCARD_RUN_FILE = "/sys/devices/virtual/bdi/179:0/read_ahead_kb";
+    public static final String KSM_PREF = "pref_ksm";
+
+    public static final String KSM_RUN_FILE = "/sys/kernel/mm/ksm/run";
+
+    public static final String KSM_PREF_DISABLED = "0";
+
+    public static final String KSM_PREF_ENABLED = "1";
 
     public static final String KSM_SLEEP_RUN_FILE = "/sys/kernel/mm/ksm/sleep_millisecs";
 
@@ -134,7 +140,7 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
 
     public static final String KSM_SCAN_PREF = "pref_ksm_scan";
 
-    public static final String KSM_SCAN_PROP = "ksm_scan_time"
+    public static final String KSM_SCAN_PROP = "ksm_scan_time";
 
     public static final String KSM_SCAN_PREF_DEFAULT = "128";
 
@@ -258,7 +264,7 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
         mKSMScanPref = (ListPreference) prefSet.findPreference(KSM_SCAN_PREF);
         if (CPUActivity.fileExists(KSM_SCAN_RUN_FILE)) {
             mKSMScanPref.setValue(SystemProperties.get(KSM_SCAN_PREF,
-+                  SystemProperties.get(KSM_SCAN_PROP, KSM_SCAN_PREF_DEFAULT)));
+                  SystemProperties.get(KSM_SCAN_PROP, KSM_SCAN_PREF_DEFAULT)));
             mKSMScanPref.setOnPreferenceChangeListener(this);
         } else {
             prefSet.removePreference(mKSMScanPref);

@@ -51,12 +51,7 @@ public class CPUReceiver extends BroadcastReceiver {
         if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
             setScreenOffCPU(ctx, true);
         } else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
-            if (uiMode == Configuration.UI_MODE_TYPE_CAR) {
-                if (!setCarDockCPU(ctx, true))
-        setScreenOffCPU(ctx, false);
-            } else {
-                setScreenOffCPU(ctx, false);
-            }
+            setScreenOffCPU(ctx, false);
         } else if (SystemProperties.getBoolean(CPU_SETTINGS_PROP, false) == false
                 && intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
             SystemProperties.set(CPU_SETTINGS_PROP, "true");
