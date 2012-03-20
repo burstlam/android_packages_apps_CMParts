@@ -864,6 +864,7 @@
     <string name="pref_transparent_notification_background_summary">Theme, ROM (UOT), transparent,\nuser color, user image, or special.\nStatus bar restart required.</string>
    
 <!-- Sound and Media Related Settings -->
+    <string name="call_feature_title">Call Features</string>
     <string name="sound_ringer_loop_title">Loop ringtone</string>
     <string name="sound_ringer_loop_summary_on">Enable ringtone looping</string>
     <string name="sound_ringer_loop_summary_off">Disable ringtone looping</string>
@@ -884,11 +885,9 @@
     <string name="pref_lowmemkill_title">Low Mem Killer</string>
     <string name="pref_lowmemkill_summary">Option for Low Mem Killer</string>
 
-
     <string name="kernel_title">CPU and IO Tweakings</string>
     <string name="mem_title">Memory and VM Tweakings</string>
     <string name="misc_title">Misc Tweakings</string>
-
 
     <!-- Performance Settings : KSM -->
     <string name="pref_ksm_title">Kernel samepage merging</string>

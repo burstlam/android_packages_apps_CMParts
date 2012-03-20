@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<!-- General settings -->
-	<PreferenceCategory android:key="general_category"
-		android:title="@string/general_title">
+        <PreferenceCategory android:key="call_category" android:title="@string/call_features_title">
 
-		<!-- Notifications -->
+		<!-- Back button ends call -->
+               <CheckBoxPreference android:key="pref_back_button_ends_call"
+                        android:title="@string/pref_back_button_ends_call_title"/>
+
                 <CheckBoxPreference android:key="flipping-mutes-ringer" 
                         android:title="@string/sound_flipping_down_mutes_ringer_title"
                         android:summary="@string/sound_flipping_down_mutes_ringer_summary"/>
@@ -17,6 +18,14 @@
                 <CheckBoxPreference android:key="call-me-louder"
                         android:title="@string/sound_call_me_louder_title" 
                         android:summary="@string/sound_call_me_louder_summary"/>
+
+	</PreferenceCategory>
+
+	<!-- General settings -->
+
+		<!-- Notifications -->
+	<PreferenceCategory android:key="general_category"
+		android:title="@string/general_title">
 
 		<CheckBoxPreference android:key="notif-focus"
 			android:title="@string/sound_notifications_focus_title"

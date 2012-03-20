@@ -88,10 +88,14 @@ public class SoundActivity extends PreferenceActivity implements OnPreferenceCha
 
     private static final String FLIPPING_DOWN_SNOOZES_ALARM = "flipping-snoozes-alarm";
 
+    private static final String BACK_BUTTON_ENDS_CALL_PREF = "pref_back_button_ends_call";
+
     private static final String PREFIX = "persist.sys.";
 
     private static final String CAMERA_CATEGORY = "camera_category";
     private static final String CAMERA_SHUTTER_DISABLE = "ro.camera.sound.disabled";
+
+    private CheckBoxPreference mBackButtonEndsCall;
 
     private static String getKey(String suffix) {
         return PREFIX + suffix;
@@ -158,6 +162,11 @@ public class SoundActivity extends PreferenceActivity implements OnPreferenceCha
         p = (CheckBoxPreference) prefSet.findPreference(FLIPPING_DOWN_SNOOZES_ALARM);
         p.setChecked(Settings.System.getInt(getContentResolver(),
                 Settings.System.FLIPPING_DOWN_SNOOZES_ALARM, 1) != 0);
+        p.setOnPreferenceChangeListener(this);
+
+        p = (CheckBoxPreference) prefSet.findPreference(BACK_BUTTON_ENDS_CALL_PREF);
+        p.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.BACK_BUTTON_ENDS_CALL_PREF, 1) != 0);
         p.setOnPreferenceChangeListener(this);
 
         p = (CheckBoxPreference) prefSet.findPreference(RINGS_SPEAKER);
@@ -253,6 +262,9 @@ public class SoundActivity extends PreferenceActivity implements OnPreferenceCha
                     getBoolean(newValue) ? 1 : 0);
         } else if (key.equals(RINGER_LOOP)) {
             Settings.System.putInt(getContentResolver(), Settings.System.RINGER_LOOP,
+                    getBoolean(newValue) ? 1 : 0);
+        } else if (key.equals(BACK_BUTTON_ENDS_CALL_PREF)) {
+            Settings.System.putInt(getContentResolver(), Settings.System.BACK_BUTTON_ENDS_CALL_PREF,
                     getBoolean(newValue) ? 1 : 0);
         } else if (key.equals(DEFAULT_VOLUME_MEDIA)) {
             Settings.System.putInt(getContentResolver(), Settings.System.DEFAULT_VOLUME_CONTROL_MEDIA,
