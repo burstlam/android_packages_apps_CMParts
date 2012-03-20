@@ -146,6 +146,10 @@ PerformanceSettingsActivity.SDCARD_PREF_DEFAULT));
 
         boolean ksm = prefs.getBoolean(PerformanceSettingsActivity.KSM_PREF, false);
 
+        CPUActivity.writeOneLine(PerformanceSettingsActivity.KSM_SLEEP_RUN_FILE, prefs.getString(PerformanceSettingsActivity.KSM_SLEEP_PREF,
+                                 PerformanceSettingsActivity.KSM_SLEEP_PREF_DEFAULT));
+        CPUActivity.writeOneLine(PerformanceSettingsActivity.KSM_SCAN_RUN_FILE, prefs.getString(PerformanceSettingsActivity.KSM_SCAN_PREF,
+                                 PerformanceSettingsActivity.KSM_SCAN_PREF_DEFAULT));
         CPUActivity.writeOneLine(PerformanceSettingsActivity.KSM_RUN_FILE, ksm ? "1" : "0");
         Log.d(TAG, "KSM settings restored.");
     }
