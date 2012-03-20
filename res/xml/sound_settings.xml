@@ -93,6 +93,13 @@
 		<CheckBoxPreference android:key="ring-speaker"
 			android:title="@string/sound_rings_title" android:persistent="false" />
 
+                <!--  Ringtone looping -->
+                <CheckBoxPreference android:key="ringer-loop"
+                        android:title="@string/sound_ringer_loop_title" 
+                        android:summaryOn="@string/sound_ringer_loop_summary_on"
+                        android:summaryOff="@string/sound_ringer_loop_summary_off"
+                        android:persistent="false" />
+
 		<!-- Alarms -->
 		<CheckBoxPreference android:key="alarm-speaker"
 			android:title="@string/sound_alarms_title" android:persistent="false" />

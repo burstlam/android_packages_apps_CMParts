@@ -863,4 +863,8 @@
     <string name="pref_transparent_notification_background_dialog_title">Dropdown background appearance</string>
     <string name="pref_transparent_notification_background_summary">Theme, ROM (UOT), transparent,\nuser color, user image, or special.\nStatus bar restart required.</string>
    
+<!-- Sound and Media Related Settings -->
+    <string name="sound_ringer_loop_title">Loop ringtone</string>
+    <string name="sound_ringer_loop_summary_on">Enable ringtone looping</string>
+    <string name="sound_ringer_loop_summary_off">Disable ringtone looping</string>
 </resources>
