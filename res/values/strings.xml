@@ -518,7 +518,7 @@
     <string name="pref_install_location_title">Install location</string>
     <string name="pref_install_location_summary">Select where new applications should be installed</string>
 
-    <string name="general_title">General</string>
+    <string name="general_title">General Settings</string>
     <string name="camera_title">Camera</string>
     <string name="buttons_title">Buttons</string>
 
@@ -823,4 +823,27 @@
     <string name="perm_enable_management_summary">Enable application permissions management</string>
     <string name="perm_enable_warning_message">Warning!\nRevoking most permissions will most likely cause applications to malfunction. If an application with revoked permissions force-closes please grant the expected permissions or don\'t use the application.\nPlease DO NOT send bug reports to Cyanogenmod if an application with revoked permissions is not working as expected!</string>
     <string name="perm_enable_warning_title">Are you sure?</string>
+
+<!-- Custom Pick from Others Mod -->
+
+<!-- Status Bar Appearance Settings -->
+    <string name="status_bar_tweak_title">Status bar Settings</string>
+    <string name="clock_settings_title">Status bar clock settings</string>
+    <string name="carrier_settings_title">Carrier label settings</string>
+    <string name="sys_icon_settings_title">System icon settings</string>
+    <string name="ui_status_bar_color_title">Status bar background color</string>
+    <string name="ui_status_bar_color_summary">Reboot required</string>
+    <string name="pref_transparent_status_bar_title">Status bar appearance</string>
+    <string name="pref_transparent_status_bar_summary">Theme, ROM, transparent, or user defined color</string>
+
+<!-- Notification Background DropDown Settings -->
+    <string name="notification_dropdown_settings_title">Notification dropdown appearance settings</string>
+    <string name="ui_notification_background_color_title">Notification dropdown background color</string>
+    <string name="ui_notification_background_color_dialog_title">Notification dropdown background color</string>
+    <string name="ui_notification_background_color_summary">Reboot required</string>
+    <string name="pref_transparent_notification_background_title">Notification dropdown\nbackground</string>
+    <string name="pref_transparent_notification_background_dialog_title">Notification dropdown background</string>
+    <string name="pref_transparent_notification_background_summary">Theme, ROM, transparent,\nuser defined color, or special.\nReboot required.</string>
+
+
 </resources>
