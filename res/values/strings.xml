@@ -864,7 +864,8 @@
     <string name="pref_transparent_notification_background_summary">Theme, ROM (UOT), transparent,\nuser color, user image, or special.\nStatus bar restart required.</string>
    
 <!-- Sound and Media Related Settings -->
-    <string name="call_feature_title">Call Features</string>
+    <string name="call_features_title">Call Features</string>
+    <string name="pref_back_button_ends_call_title">Back button ends call</string>
     <string name="sound_ringer_loop_title">Loop ringtone</string>
     <string name="sound_ringer_loop_summary_on">Enable ringtone looping</string>
     <string name="sound_ringer_loop_summary_off">Disable ringtone looping</string>
