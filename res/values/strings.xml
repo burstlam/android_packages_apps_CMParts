@@ -467,10 +467,6 @@
     <string name="pref_use_dithering_title">Enable surface dithering</string>
     <string name="pref_use_dithering_summary">Dithering surfaces improves image quality at the cost of performance (requires reboot)</string>
 
-    <!-- Performance Settings : KSM -->
-    <string name="pref_ksm_title">Kernel samepage merging</string>
-    <string name="pref_ksm_summary">KSM reduces physical memory requirements and improves performance</string>
-
     <!-- Performance Settings : 16bpp Alpha -->
     <string name="pref_use_16bpp_alpha_title">Use 16bit transparency</string>
     <string name="pref_use_16bpp_alpha_summary">Using 16bit transparency can improve scrolling performance, but may cause visual artifacts (requires reboot)</string>
@@ -881,6 +877,14 @@
     <!-- Performance : GMAPS hack -->
     <string name="pref_gmaps_hack_title">GMAPS hack</string>
     <string name="pref_gmaps_hack_summary">Make NetworkLocationService killable. Frees some RAM, but Latitude isn\'t reporting location any more (requires reboot)</string>
+
+    <!-- Performance Settings : KSM -->
+    <string name="pref_ksm_title">Kernel samepage merging</string>
+    <string name="pref_ksm_summary">KSM reduces physical memory requirements and improves performance</string>
+    <string name="pref_ksm_sleep_title">KSM Sleep time</string>
+    <string name="pref_ksm_sleep_summary">KSM Sleep time option (improves performance)</string>
+    <string name="pref_ksm_scan_title">KSM Page scan</string>
+    <string name="pref_ksm_scan_summary">KSM Page scan option (improves performance)</string>
 
     <!-- Performance Settings : SD Read Ahead Cache Size -->
     <string name="pref_sd_readahead_title">SD Read Ahead Size</string>

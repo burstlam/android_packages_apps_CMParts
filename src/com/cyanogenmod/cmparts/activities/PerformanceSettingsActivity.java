@@ -120,13 +120,23 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
 
     private static final int LOCK_MMS_DEFAULT = 0;
 
-    public static final String KSM_RUN_FILE = "/sys/kernel/mm/ksm/run";
+    public static final String SDCARD_RUN_FILE = "/sys/devices/virtual/bdi/179:0/read_ahead_kb";
 
-    public static final String KSM_PREF = "pref_ksm";
+    public static final String KSM_SLEEP_RUN_FILE = "/sys/kernel/mm/ksm/sleep_millisecs";
 
-    public static final String KSM_PREF_DISABLED = "0";
+    public static final String KSM_SLEEP_PREF = "pref_ksm_sleep";
 
-    public static final String KSM_PREF_ENABLED = "1";
+    public static final String KSM_SLEEP_PROP = "ksm_sleep_time";
+
+    public static final String KSM_SLEEP_PREF_DEFAULT = "2000";
+
+    public static final String KSM_SCAN_RUN_FILE = "/sys/kernel/mm/ksm/pages_to_scan";
+
+    public static final String KSM_SCAN_PREF = "pref_ksm_scan";
+
+    public static final String KSM_SCAN_PROP = "ksm_scan_time"
+
+    public static final String KSM_SCAN_PREF_DEFAULT = "128";
 
     private ListPreference mCompcachePref;
 
@@ -151,6 +161,10 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
     private ListPreference mHeapsizePref;
 
     private CheckBoxPreference mKSMPref;
+
+    private ListPreference mKSMSleepPref;
+
+    private ListPreference mKSMScanPref;
 
     private AlertDialog alertDialog;
 
@@ -210,7 +224,25 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
             mKSMPref.setChecked(KSM_PREF_ENABLED.equals(CPUActivity.readOneLine(KSM_RUN_FILE)));
         } else {
             prefSet.removePreference(mKSMPref);
-        }            
+        }
+
+        mKSMSleepPref = (ListPreference) prefSet.findPreference(KSM_SLEEP_PREF);
+        if (CPUActivity.fileExists(KSM_SLEEP_RUN_FILE)) {
+            mKSMSleepPref.setValue(SystemProperties.get(KSM_SLEEP_PREF,
+                   SystemProperties.get(KSM_SLEEP_PROP, KSM_SLEEP_PREF_DEFAULT)));
+            mKSMSleepPref.setOnPreferenceChangeListener(this);
+        } else {
+            prefSet.removePreference(mKSMSleepPref);
+        } 
+
+        mKSMScanPref = (ListPreference) prefSet.findPreference(KSM_SCAN_PREF);
+        if (CPUActivity.fileExists(KSM_SCAN_RUN_FILE)) {
+            mKSMScanPref.setValue(SystemProperties.get(KSM_SCAN_PREF,
++                  SystemProperties.get(KSM_SCAN_PROP, KSM_SCAN_PREF_DEFAULT)));
+            mKSMScanPref.setOnPreferenceChangeListener(this);
+        } else {
+            prefSet.removePreference(mKSMScanPref);
+        } 
 
         mDisableBootanimPref = (CheckBoxPreference) prefSet.findPreference(DISABLE_BOOTANIMATION_PREF);
         String disableBootanimation = SystemProperties.get(DISABLE_BOOTANIMATION_PERSIST_PROP, DISABLE_BOOTANIMATION_DEFAULT);
@@ -335,6 +367,20 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
         if (preference == mSdReadAheadPref) {
             if (newValue != null) {
                 CPUActivity.writeOneLine(SDCARD_RUN_FILE, (String)newValue);
+                return true;
+            }
+        }
+
+        if (preference == mKSMSleepPref) {
+            if (newValue != null) {
+                CPUActivity.writeOneLine(KSM_SLEEP_RUN_FILE, (String)newValue);
+                return true;
+            }
+        }
+
+        if (preference == mKSMScanPref) {
+            if (newValue != null) {
+                CPUActivity.writeOneLine(KSM_SCAN_RUN_FILE, (String)newValue);
                 return true;
             }
         }
