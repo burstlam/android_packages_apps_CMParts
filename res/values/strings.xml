@@ -878,9 +878,11 @@
     <string name="pref_gmaps_hack_title">GMAPS hack</string>
     <string name="pref_gmaps_hack_summary">Make NetworkLocationService killable. Frees some RAM, but Latitude isn\'t reporting location any more (requires reboot)</string>
 
-    <!-- Performance : Kernel hack -->
+    <!-- Performance : Kernel tweakings -->
     <string name="pref_iosched_title">IO Scheduler</string>
     <string name="pref_iosched_summary">Choice IO scheduler (requires reboot)</string>
+    <string name="pref_lowmemkill_title">Low Mem Killer</string>
+    <string name="pref_lowmemkill_summary">Option for Low Mem Killer</string>
 
     <!-- Performance Settings : KSM -->
     <string name="pref_ksm_title">Kernel samepage merging</string>

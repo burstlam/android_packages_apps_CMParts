@@ -146,6 +146,14 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
 
     private static final String IOSCHED_DEFAULT = "sio";
 
+    public static final String LOWMEMKILL_RUN_FILE = "/sys/module/lowmemorykiller/parameters/minfree";
+
+    public static final String LOWMEMKILL_PROP = "lowmemkill";
+
+    public static final String LOWMEMKILL_PREF = "pref_lowmemkill";
+
+    public static final String LOWMEMKILL_PREF_DEFAULT = "2560,4096,6144,10240,11264,12288";
+
     private ListPreference mCompcachePref;
 
     private CheckBoxPreference mJitPref;
@@ -175,6 +183,8 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
     private ListPreference mKSMScanPref;
 
     private ListPreference mIoSchedPref;
+
+    private ListPreference mLowMemKillPref;
 
     private AlertDialog alertDialog;
 
@@ -269,6 +279,15 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
         mGmapsHackPref = (CheckBoxPreference) prefSet.findPreference(GMAPS_HACK_PREF);
         String gmapshack = SystemProperties.get(GMAPS_HACK_PERSIST_PROP, GMAPS_HACK_DEFAULT);
         mGmapsHackPref.setChecked("1".equals(gmapshack));
+
+        mLowMemKillPref = (ListPreference) prefSet.findPreference(LOWMEMKILL_PREF);
+        if (CPUActivity.fileExists(LOWMEMKILL_RUN_FILE)) {
+            mLowMemKillPref.setValue(SystemProperties.get(LOWMEMKILL_PREF,
+                    SystemProperties.get(LOWMEMKILL_PROP, LOWMEMKILL_PREF_DEFAULT)));
+            mLowMemKillPref.setOnPreferenceChangeListener(this);
+        } else {
+            prefSet.removePreference(mLowMemKillPref);
+        }
 
         mIoSchedPref = (ListPreference) prefSet.findPreference(IOSCHED_PREF);
         mIoSchedPref.setValue(SystemProperties.get(IOSCHED_PERSIST_PROP,
@@ -377,6 +396,13 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
                 SystemProperties.set(COMPCACHE_PERSIST_PROP, (String)newValue);
                 return true;
 	    }
+        }
+
+        if (preference == mLowMemKillPref) {
+            if (newValue != null) {
+                CPUActivity.writeOneLine(LOWMEMKILL_RUN_FILE, (String)newValue);
+                return true;
+            }
         }
 
         if (preference == mIoSchedPref) {

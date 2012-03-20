@@ -46,6 +46,7 @@ public class CPUReceiver extends BroadcastReceiver {
         Log.w(TAG, "mode: " + uiMode);
 
         configureSDCARD(ctx);
+        configureLOWMEMKILL(ctx);
 
         if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
             setScreenOffCPU(ctx, true);
@@ -138,7 +139,15 @@ public class CPUReceiver extends BroadcastReceiver {
     
         CPUActivity.writeOneLine(PerformanceSettingsActivity.SDCARD_RUN_FILE, prefs.getString(PerformanceSettingsActivity.SDCARD_PREF,
 PerformanceSettingsActivity.SDCARD_PREF_DEFAULT));
-        Log.d(TAG, "SDCARD settings restored.");
+        Log.d(TAG, "SdCard settings restored.");
+    }
+
+    private void configureLOWMEMKILL(Context ctx) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+    
+        CPUActivity.writeOneLine(PerformanceSettingsActivity.LOWMEMKILL_RUN_FILE, prefs.getString(PerformanceSettingsActivity.LOWMEMKILL_PREF,
+PerformanceSettingsActivity.LOWMEMKILL_PREF_DEFAULT));
+        Log.d(TAG, "LowMemKill settings restored.");
     }
 
     private void configureKSM(Context ctx) {
