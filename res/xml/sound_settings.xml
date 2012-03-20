@@ -14,6 +14,10 @@
                         android:title="@string/sound_flipping_down_snoozes_alarm_title"
                         android:summary="@string/sound_flipping_down_snoozes_alarm_summary"/>
 
+                <CheckBoxPreference android:key="call-me-louder"
+                        android:title="@string/sound_call_me_louder_title" 
+                        android:summary="@string/sound_call_me_louder_summary"/>
+
 		<CheckBoxPreference android:key="notif-focus"
 			android:title="@string/sound_notifications_focus_title"
 			android:summary="@string/sound_notifications_focus_summary"

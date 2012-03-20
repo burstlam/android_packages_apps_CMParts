@@ -871,4 +871,7 @@
     <string name="sound_flipping_down_mutes_ringer_summary">No responsibility for being fired!</string>
     <string name="sound_flipping_down_snoozes_alarm_title">Flip down to snoozes alarm</string>
     <string name="sound_flipping_down_snoozes_alarm_summary">No responsibility for being fired!</string>
+    <string name="sound_call_me_louder_title">Call Me Louder</string>
+    <string name="sound_call_me_louder_summary">Louder ringer when phone is inside bags</string>
+
 </resources>
