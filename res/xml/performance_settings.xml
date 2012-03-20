@@ -12,7 +12,7 @@
 
         <ListPreference android:key="pref_iosched"
             android:dialogTitle="@string/pref_iosched_title"
-            android:title="@string/pref_sd_readahead_title" android:summary="@string/pref_iosched_summary"
+            android:title="@string/pref_iosched_title" android:summary="@string/pref_iosched_summary"
             android:entries="@array/entries_iosched"
             android:entryValues="@array/values_iosched" />
     </PreferenceCategory>
@@ -28,7 +28,7 @@
 
         <ListPreference android:key="pref_lowmemkill"
             android:dialogTitle="@string/pref_lowmemkill_title"
-            android:title="@string/pref_sd_readahead_title" android:summary="@string/pref_lowmemkill_summary"
+            android:title="@string/pref_lowmemkill_title" android:summary="@string/pref_lowmemkill_summary"
             android:entries="@array/entries_lowmemkill"
             android:entryValues="@array/values_lowmemkill" />
 

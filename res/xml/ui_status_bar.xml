@@ -70,6 +70,10 @@
 			android:summary="@string/ui_status_bar_cm_signal_text_summary"
 			android:entries="@array/entries_status_bar_signal"
 			android:entryValues="@array/values_status_bar_signal" />
+		<CheckBoxPreference android:key="pref_status_bar_headset"
+			android:title="@string/ui_status_bar_headset_title"
+			android:summary="@string/ui_status_bar_headset_summary"
+			android:defaultValue="true" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/carrier_settings_title">
@@ -88,15 +92,6 @@
 			android:title="@string/ui_status_bar_carrier_label_custom_title"
 			android:summary="@string/ui_status_bar_carrier_label_custom_summary"
 			android:defaultValue="CyanogenMod 7" />
-
-		<CheckBoxPreference android:key="pref_status_bar_brightness_control"
-			android:title="@string/ui_status_bar_toggle_brightness"
-			android:summary="@string/ui_status_bar_toggle_brightness_summary"
-			android:defaultValue="falses" />
-		<CheckBoxPreference android:key="pref_status_bar_headset"
-			android:title="@string/ui_status_bar_headset_title"
-			android:summary="@string/ui_status_bar_headset_summary"
-			android:defaultValue="true" />
 	</PreferenceCategory>
 
 </PreferenceScreen>
