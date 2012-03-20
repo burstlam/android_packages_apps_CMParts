@@ -27,11 +27,11 @@ import android.view.Window;
 import android.widget.Toast;
 import java.util.ArrayList;
 import android.provider.MediaStore;
-import android.widget.Toast;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.EditTextPreference;
@@ -57,6 +57,8 @@ import com.cyanogenmod.cmparts.R;
 public class UIStatusBarActivity extends PreferenceActivity implements OnPreferenceChangeListener {
 
     private static final String PREF_STATUS_BAR_AM_PM = "pref_status_bar_am_pm";
+
+    private static final String PREF_RESTART_STATUS_BAR = "pref_restart_status_bar";
 
     private static final String PREF_STATUS_BAR_BATTERY = "pref_status_bar_battery";
 
@@ -94,6 +96,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
     private static final int REQUEST_CODE_PICK_FILE = 999;
 
     private ListPreference mStatusBarAmPm;
+
+    private Preference mRestartStatusBar;
 
     private ListPreference mStatusBarBattery;
 
@@ -134,6 +138,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
         PreferenceScreen prefSet = getPreferenceScreen();
 
+        mRestartStatusBar = (Preference) prefSet.findPreference(PREF_RESTART_STATUS_BAR);
         mStatusBarClock = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_CLOCK);
         mStatusBarCenterClock = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_CENTERCLOCK);
         mStatusBarClockColor = (Preference) prefSet.findPreference(PREF_STATUS_BAR_CLOCKCOLOR);
@@ -288,16 +293,12 @@ int transparentNotificationBackgroundPref = Settings.System.getInt(getContentRes
         } else if (preference == mTransparentNotificationBackgroundPref) {
             int transparentNotificationBackgroundPref = Integer.parseInt(String.valueOf(newValue));
             if (transparentNotificationBackgroundPref == 5) {
-//                Intent intent = new Intent("org.openintents.action.PICK_FILE");
-//                intent.setData(Uri.parse("file:///sdcard/"));
-//                intent.putExtra("org.openintents.extra.TITLE", "Please select a file");
-//                startActivityForResult(intent, REQUEST_CODE_PICK_FILE);
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
                 intent.setType("image/*");
                 intent.putExtra("crop", "true");
                 intent.putExtra("scale", true);
                 intent.putExtra("scaleUpIfNeeded", false);
-                intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+                intent.putExtra("outputFormat", Bitmap.CompressFormat.PNG.toString());
                 int width = getWindowManager().getDefaultDisplay().getWidth();
                 int height = getWindowManager().getDefaultDisplay().getHeight();
                 Rect rect = new Rect();
@@ -335,7 +336,46 @@ int transparentNotificationBackgroundPref = Settings.System.getInt(getContentRes
         boolean value;
 
         /* Preference Screens */
-        if (preference == mStatusBarClock) {
+        if(preference == mRestartStatusBar) {
+            // attempt to restart the status bar
+            // it should restart on it's own after being killed, but we
+            // will make an attempt anyway to be sure, and our attempt
+            // will be aborted by the system if it systemui is already running
+            String[] str1 ={"su","-c","killall com.android.systemui"};
+            final String[] str2 ={"su","-c","am","startservice","-n","com.android.systemui/com.android.systemui.statusbar.StatusBarService"};
+            try {
+                // kill the status bar service (com.android.systemui)
+                // --first we disable the GUI restart element to prevent the
+                // --user from pressing it repeatedly despite warnings
+                // TODO: enable/disabled gui element if systemui service is running/stopped
+                mRestartStatusBar.setEnabled(false);
+                mRestartStatusBar.setSummary("Stopping the status bar service...");
+                Runtime.getRuntime().exec(str1);
+                // schedule an attempt to restart the status bar service
+                Handler handleRestartSystemUI = new Handler();
+                handleRestartSystemUI.postDelayed(new Runnable() {
+                    public void run() {
+                        mRestartStatusBar.setSummary("Attempting to restart the status bar service...");
+                        try {
+                            Runtime.getRuntime().exec(str2);
+                        } catch (Exception e){
+                            Log.e("startservice", "am startservice failed to restart systemui", e);
+                        }
+                    }
+                }, 8000);
+                // --set a delay before re-enabling this gui element
+                Handler handleReenableGUIElement = new Handler();
+                handleReenableGUIElement.postDelayed(new Runnable() {
+                    public void run() {
+                        mRestartStatusBar.setSummary("If the status bar fails to restart,\nyou may have to reboot your device.");
+                        mRestartStatusBar.setEnabled(true);
+                    }
+                }, 20000);
+                Toast.makeText(getApplicationContext(), "Restarting status bar\nin 10-30 seconds" ,Toast.LENGTH_LONG).show();
+            } catch (Exception e){
+                Log.e("killall", "failed to restart statusbar", e);
+            }
+        } else if (preference == mStatusBarClock) {
             value = mStatusBarClock.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CLOCK,
                     value ? 1 : 0);
@@ -429,21 +469,7 @@ private int getNotificationBackgroundColor() {
             case REQUEST_CODE_PICK_FILE:
                 if (resultCode != RESULT_OK) {
                     Log.d("Copy_Notification_Error", "Error: " + resultCode);
-/*                if (resultCode == RESULT_OK) {
-                    // obtain the filename
-                    Uri fileUri = Uri.fromFile(wallpaperTemporary);
-                    if (fileUri != null) {
-                        String filePath = fileUri.getPath();
-                        Log.d("FilePath = ", filePath); 
-                        if (filePath != null) {
-                            Intent mvBackgroundImage = new Intent();
-                            mvBackgroundImage.setAction(COPY_BACKGROUND_INTENT);
-                            mvBackgroundImage.putExtra("fileName", filePath);
-                            sendBroadcast(mvBackgroundImage);
-                        }
-                    }
-*/
-                } else { 
+                } else {
                     Toast.makeText(context, "Notification background set to new image" ,Toast.LENGTH_LONG).show();
                 }
             break;

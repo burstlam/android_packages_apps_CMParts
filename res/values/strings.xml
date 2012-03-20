@@ -832,18 +832,21 @@
     <string name="carrier_settings_title">Carrier label settings</string>
     <string name="sys_icon_settings_title">System icon settings</string>
     <string name="ui_status_bar_color_title">Status bar background color</string>
-    <string name="ui_status_bar_color_summary">Reboot required</string>
+    <string name="ui_status_bar_color_summary">Status bar restart</string>
     <string name="pref_transparent_status_bar_title">Status bar appearance</string>
-    <string name="pref_transparent_status_bar_summary">Theme, ROM, transparent, or user defined color</string>
+    <string name="pref_transparent_status_bar_summary">Theme, ROM (UOT), transparent,\nor user defined color.\nStatus bar restart required</string>
+
+    <string name="pref_restart_status_bar_title">Restart Status Bar</string>
+    <string name="pref_restart_status_bar_value">Click To Restart Status Bar</string>
+    <string name="pref_restart_status_bar_summary">Wait at least 30 seconds between clicks!\nIf status bar fails to restart,\nyou may have to reboot.</string>
 
 <!-- Notification Background DropDown Settings -->
     <string name="notification_dropdown_settings_title">Notification dropdown appearance settings</string>
-    <string name="ui_notification_background_color_title">Notification dropdown background color</string>
-    <string name="ui_notification_background_color_dialog_title">Notification dropdown background color</string>
-    <string name="ui_notification_background_color_summary">Reboot required</string>
-    <string name="pref_transparent_notification_background_title">Notification dropdown\nbackground</string>
-    <string name="pref_transparent_notification_background_dialog_title">Notification dropdown background</string>
-    <string name="pref_transparent_notification_background_summary">Theme, ROM, transparent,\nuser defined color, or special.\nReboot required.</string>
-
-
+    <string name="ui_notification_background_color_title">Dropdown background color</string>
+    <string name="ui_notification_background_color_dialog_title">Dropdown background color</string>
+    <string name="ui_notification_background_color_summary">Status bar restart required</string>
+    <string name="pref_transparent_notification_background_title">Dropdown background appearance</string>
+    <string name="pref_transparent_notification_background_dialog_title">Dropdown background appearance</string>
+    <string name="pref_transparent_notification_background_summary">Theme, ROM (UOT), transparent,\nuser color, user image, or special.\nStatus bar restart required.</string>
+   
 </resources>
