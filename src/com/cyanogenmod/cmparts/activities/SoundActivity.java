@@ -95,8 +95,6 @@ public class SoundActivity extends PreferenceActivity implements OnPreferenceCha
     private static final String CAMERA_CATEGORY = "camera_category";
     private static final String CAMERA_SHUTTER_DISABLE = "ro.camera.sound.disabled";
 
-    private CheckBoxPreference mBackButtonEndsCall;
-
     private static String getKey(String suffix) {
         return PREFIX + suffix;
     }
