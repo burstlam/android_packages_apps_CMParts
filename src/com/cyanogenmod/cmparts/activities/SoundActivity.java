@@ -82,6 +82,10 @@ public class SoundActivity extends PreferenceActivity implements OnPreferenceCha
 
     private static final String CAMERA_FOCUS_MUTE = "camera_focus_mute";
 
+    private static final String FLIPPING_DOWN_MUTES_RINGER = "flipping-mutes-ringer";
+
+    private static final String FLIPPING_DOWN_SNOOZES_ALARM = "flipping-snoozes-alarm";
+
     private static final String PREFIX = "persist.sys.";
 
     private static final String CAMERA_CATEGORY = "camera_category";
@@ -137,6 +141,16 @@ public class SoundActivity extends PreferenceActivity implements OnPreferenceCha
         p = (CheckBoxPreference) prefSet.findPreference(DEFAULT_VOLUME_MEDIA);
         p.setChecked(Settings.System.getInt(getContentResolver(),
                 Settings.System.DEFAULT_VOLUME_CONTROL_MEDIA, 0) != 0);
+        p.setOnPreferenceChangeListener(this);
+
+        p = (CheckBoxPreference) prefSet.findPreference(FLIPPING_DOWN_MUTES_RINGER);
+        p.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.FLIPPING_DOWN_MUTES_RINGER, 1) != 0);
+        p.setOnPreferenceChangeListener(this);
+
+        p = (CheckBoxPreference) prefSet.findPreference(FLIPPING_DOWN_SNOOZES_ALARM);
+        p.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.FLIPPING_DOWN_SNOOZES_ALARM, 1) != 0);
         p.setOnPreferenceChangeListener(this);
 
         p = (CheckBoxPreference) prefSet.findPreference(RINGS_SPEAKER);
@@ -220,6 +234,12 @@ public class SoundActivity extends PreferenceActivity implements OnPreferenceCha
                     getBoolean(newValue) ? 1 : 0);
         } else if (key.equals(VOLUME_KEY_BEEPS)) {
             Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_KEY_BEEPS,
+                    getBoolean(newValue) ? 1 : 0);
+        } else if (key.equals(FLIPPING_DOWN_MUTES_RINGER)) {
+            Settings.System.putInt(getContentResolver(), Settings.System.FLIPPING_DOWN_MUTES_RINGER,
+                    getBoolean(newValue) ? 1 : 0);
+        } else if (key.equals(FLIPPING_DOWN_SNOOZES_ALARM)) {
+            Settings.System.putInt(getContentResolver(), Settings.System.FLIPPING_DOWN_SNOOZES_ALARM,
                     getBoolean(newValue) ? 1 : 0);
         } else if (key.equals(RINGER_LOOP)) {
             Settings.System.putInt(getContentResolver(), Settings.System.RINGER_LOOP,

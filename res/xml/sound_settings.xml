@@ -6,6 +6,14 @@
 		android:title="@string/general_title">
 
 		<!-- Notifications -->
+                <CheckBoxPreference android:key="flipping-mutes-ringer" 
+                        android:title="@string/sound_flipping_down_mutes_ringer_title"
+                        android:summary="@string/sound_flipping_down_mutes_ringer_summary"/>
+
+                <CheckBoxPreference android:key="flipping-snoozes-alarm" 
+                        android:title="@string/sound_flipping_down_snoozes_alarm_title"
+                        android:summary="@string/sound_flipping_down_snoozes_alarm_summary"/>
+
 		<CheckBoxPreference android:key="notif-focus"
 			android:title="@string/sound_notifications_focus_title"
 			android:summary="@string/sound_notifications_focus_summary"

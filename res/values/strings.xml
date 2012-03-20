@@ -867,4 +867,8 @@
     <string name="sound_ringer_loop_title">Loop ringtone</string>
     <string name="sound_ringer_loop_summary_on">Enable ringtone looping</string>
     <string name="sound_ringer_loop_summary_off">Disable ringtone looping</string>
+    <string name="sound_flipping_down_mutes_ringer_title">Flip down to mutes ringer</string>
+    <string name="sound_flipping_down_mutes_ringer_summary">No responsibility for being fired!</string>
+    <string name="sound_flipping_down_snoozes_alarm_title">Flip down to snoozes alarm</string>
+    <string name="sound_flipping_down_snoozes_alarm_summary">No responsibility for being fired!</string>
 </resources>
