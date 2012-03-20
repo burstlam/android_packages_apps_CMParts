@@ -912,4 +912,18 @@
         <item>512</item>
     </string-array>
 
+<string-array name="entries_iosched">
+        <item>sio</item>
+        <item>noop</item>
+        <item>bfq</item>
+        <item>vr</item>
+    </string-array>
+
+    <string-array name="values_iosched">
+        <item>sio</item>
+        <item>noop</item>
+        <item>bfq</item>
+        <item>vr</item>
+
++    </string-array>
 </resources>

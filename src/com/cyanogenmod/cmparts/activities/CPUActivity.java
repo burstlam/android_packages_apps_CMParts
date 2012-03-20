@@ -173,6 +173,7 @@ public class CPUActivity extends PreferenceActivity implements
 
         if (temp == null) {
             PrefScreen.removePreference(mMaxFrequencyPref);
+            PrefScreen.removePreference(mMaxSoFrequencyPref);
         }
 
         if (availableFrequenciesLine == null) {
@@ -180,7 +181,7 @@ public class CPUActivity extends PreferenceActivity implements
             mMaxFrequencyPref.setEnabled(false);
         }
 	
-        temp = readOneLine(FREQ_MAX_FILE);
+        temp = prefs.getString(SO_MAX_FREQ_PREF, null);
 
         mMaxSoFrequencyPref = (ListPreference) PrefScreen.findPreference(SO_MAX_FREQ_PREF);
         mMaxSoFrequencyPref.setEntryValues(availableFrequencies);
@@ -189,8 +190,10 @@ public class CPUActivity extends PreferenceActivity implements
         mMaxSoFrequencyPref.setSummary(String.format(mMaxSoFrequencyFormat, toMHz(temp)));
         mMaxSoFrequencyPref.setOnPreferenceChangeListener(this);
 
-        if (temp == null) {
-            PrefScreen.removePreference(mMaxSoFrequencyPref);
+        if (availableFrequenciesLine == null) {
+            mMinFrequencyPref.setEnabled(false);
+            mMaxFrequencyPref.setEnabled(false);
+            mMaxSoFrequencyPref.setEnabled(false);
         }
 
         mCurCPUThread.start();
@@ -236,7 +239,9 @@ public class CPUActivity extends PreferenceActivity implements
             } else if (preference == mMaxFrequencyPref) {
                 fname = FREQ_MAX_FILE;
             } else if (preference == mMaxSoFrequencyPref) {
-                fname = FREQ_MAX_FILE;
+                mMaxSoFrequencyPref.setSummary(String.format(mMaxSoFrequencyFormat,
+                        toMHz((String) newValue)));
+                return true;;
             }
 
             if (writeOneLine(fname, (String) newValue)) {
@@ -247,9 +252,6 @@ public class CPUActivity extends PreferenceActivity implements
                             toMHz((String) newValue)));
                 } else if (preference == mMaxFrequencyPref) {
                     mMaxFrequencyPref.setSummary(String.format(mMaxFrequencyFormat,
-                            toMHz((String) newValue)));
-                } else if (preference == mMaxSoFrequencyPref) {
-                    mMaxSoFrequencyPref.setSummary(String.format(mMaxSoFrequencyFormat,
                             toMHz((String) newValue)));
                 }
                 return true;

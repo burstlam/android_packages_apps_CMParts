@@ -11,6 +11,12 @@
                 android:targetClass="com.cyanogenmod.cmparts.activities.CPUActivity" />
         </PreferenceScreen>
 
+        <ListPreference android:key="pref_iosched"
+            android:dialogTitle="@string/pref_iosched_title"
+            android:title="@string/pref_sd_readahead_title" android:summary="@string/pref_iosched_summary"
+            android:entries="@array/entries_iosched"
+            android:entryValues="@array/values_iosched" />
+
         <ListPreference android:key="pref_compcache_size"
             android:dialogTitle="@string/pref_compcache_title"
             android:title="@string/pref_compcache_title"

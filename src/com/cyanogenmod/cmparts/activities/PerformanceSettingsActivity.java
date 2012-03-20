@@ -138,6 +138,14 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
 
     public static final String KSM_SCAN_PREF_DEFAULT = "128";
 
+    private static final String IOSCHED_PREF = "pref_iosched";
+
+    private static final String IOSCHED_PROP = "iosched";
+
+    private static final String IOSCHED_PERSIST_PROP = "persist.sys.ioscheduler";
+
+    private static final String IOSCHED_DEFAULT = "sio";
+
     private ListPreference mCompcachePref;
 
     private CheckBoxPreference mJitPref;
@@ -165,6 +173,8 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
     private ListPreference mKSMSleepPref;
 
     private ListPreference mKSMScanPref;
+
+    private ListPreference mIoSchedPref;
 
     private AlertDialog alertDialog;
 
@@ -259,6 +269,11 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
         mGmapsHackPref = (CheckBoxPreference) prefSet.findPreference(GMAPS_HACK_PREF);
         String gmapshack = SystemProperties.get(GMAPS_HACK_PERSIST_PROP, GMAPS_HACK_DEFAULT);
         mGmapsHackPref.setChecked("1".equals(gmapshack));
+
+        mIoSchedPref = (ListPreference) prefSet.findPreference(IOSCHED_PREF);
+        mIoSchedPref.setValue(SystemProperties.get(IOSCHED_PERSIST_PROP,
+                SystemProperties.get(IOSCHED_PROP, IOSCHED_DEFAULT)));
+        mIoSchedPref.setOnPreferenceChangeListener(this);
 
         mSdReadAheadPref = (ListPreference) prefSet.findPreference(SDCARD_PREF);
 
@@ -362,6 +377,13 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
                 SystemProperties.set(COMPCACHE_PERSIST_PROP, (String)newValue);
                 return true;
 	    }
+        }
+
+        if (preference == mIoSchedPref) {
+            if (newValue != null) {
+                SystemProperties.set(IOSCHED_PERSIST_PROP, (String)newValue);
+                return true;
+            }
         }
 
         if (preference == mSdReadAheadPref) {
