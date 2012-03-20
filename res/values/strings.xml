@@ -882,5 +882,8 @@
     <string name="pref_gmaps_hack_title">GMAPS hack</string>
     <string name="pref_gmaps_hack_summary">Make NetworkLocationService killable. Frees some RAM, but Latitude isn\'t reporting location any more (requires reboot)</string>
 
-
+    <!-- Performance Settings : SD Read Ahead Cache Size -->
+    <string name="pref_sd_readahead_title">SD Read Ahead Size</string>
+    <string name="pref_sd_readahead_summary">Size of the SD Read Ahead Cache (requires reboot)</string>
+    <string name="pref_sd_readahead_summary">Size of the SD Read Ahead Cache</string>
 </resources>

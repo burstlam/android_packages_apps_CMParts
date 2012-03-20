@@ -45,6 +45,8 @@ public class CPUReceiver extends BroadcastReceiver {
         uiMode = ((UiModeManager)ctx.getSystemService(Context.UI_MODE_SERVICE)).getCurrentModeType();
         Log.w(TAG, "mode: " + uiMode);
 
+        configureSDCARD(ctx);
+
         if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
             setScreenOffCPU(ctx, true);
         } else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
@@ -129,6 +131,14 @@ public class CPUReceiver extends BroadcastReceiver {
             }
             Log.d(TAG, "CPU settings restored.");
         }
+    }
+
+    private void configureSDCARD(Context ctx) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+    
+        CPUActivity.writeOneLine(PerformanceSettingsActivity.SDCARD_RUN_FILE, prefs.getString(PerformanceSettingsActivity.SDCARD_PREF,
+PerformanceSettingsActivity.SDCARD_PREF_DEFAULT));
+        Log.d(TAG, "SDCARD settings restored.");
     }
 
     private void configureKSM(Context ctx) {

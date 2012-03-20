@@ -108,6 +108,14 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
 
     private CheckBoxPreference mGmapsHackPref;
 
+    public static final String SDCARD_RUN_FILE = "/sys/devices/virtual/bdi/179:0/read_ahead_kb";
+
+    public static final String SDCARD_PREF = "pref_sdcard";
+
+    public static final String SDCARD_PROP = "sdcardread";
+
+    public static final String SDCARD_PREF_DEFAULT = "2048";
+
     private static final int LOCK_HOME_DEFAULT = 0;
 
     private static final int LOCK_MMS_DEFAULT = 0;
@@ -129,6 +137,8 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
     private CheckBoxPreference mUse16bppAlphaPref;
 
     private ListPreference mScrollingCachePref;
+
+    private ListPreference mSdReadAheadPref;
 
     private CheckBoxPreference mPurgeableAssetsPref;
 
@@ -217,6 +227,16 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
         mGmapsHackPref = (CheckBoxPreference) prefSet.findPreference(GMAPS_HACK_PREF);
         String gmapshack = SystemProperties.get(GMAPS_HACK_PERSIST_PROP, GMAPS_HACK_DEFAULT);
         mGmapsHackPref.setChecked("1".equals(gmapshack));
+
+        mSdReadAheadPref = (ListPreference) prefSet.findPreference(SDCARD_PREF);
+
+        if (CPUActivity.fileExists(SDCARD_RUN_FILE)) {
+            mSdReadAheadPref.setValue(SystemProperties.get(SDCARD_PREF,
+                     SystemProperties.get(SDCARD_PROP, SDCARD_PREF_DEFAULT)));
+            mSdReadAheadPref.setOnPreferenceChangeListener(this);
+        } else {
+            prefSet.removePreference(mSdReadAheadPref);
+        }
 
         // Set up the warning
         alertDialog = new AlertDialog.Builder(this).create();
@@ -312,6 +332,12 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
 	    }
         }
 
+        if (preference == mSdReadAheadPref) {
+            if (newValue != null) {
+                CPUActivity.writeOneLine(SDCARD_RUN_FILE, (String)newValue);
+                return true;
+            }
+        }
         return false;
     }
 
