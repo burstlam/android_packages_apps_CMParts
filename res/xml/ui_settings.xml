@@ -45,15 +45,6 @@
 			android:title="@string/pref_share_screenshot_title" android:summary="@string/pref_share_screenshot_summary" />
 	</PreferenceCategory>
 
-<PreferenceCategory android:title="@string/fonts_change_title">
-                 <PreferenceScreen android:key="fonts_settings"
-                         android:title="@string/fonts_title" android:summary="@string/fonts_summary">
-                         <intent android:action="android.intent.action.MAIN"
-                                 android:targetPackage="com.cyanogenmod.cmfontschanger"
-                                 android:targetClass="com.cyanogenmod.cmfontschanger.TypeFresh" />
-                  </PreferenceScreen>
-        </PreferenceCategory>
-
 	<PreferenceCategory android:title="@string/ui_overscroll_title">
 		<ListPreference android:key="pref_overscroll_effect"
 			android:dialogTitle="@string/pref_overscroll_title" android:title="@string/pref_overscroll_title"
