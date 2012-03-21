@@ -16,6 +16,7 @@
 
 package com.cyanogenmod.cmparts.activities;
 
+import android.graphics.Color;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
@@ -43,6 +44,7 @@ import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
 import android.text.InputFilter;
 import android.text.InputFilter.LengthFilter;
+import android.text.TextUtils;
 import android.widget.EditText;
 import android.net.Uri;
 
@@ -53,6 +55,7 @@ import android.util.Log;
 import java.util.logging.Level;
 
 import com.cyanogenmod.cmparts.R;
+import com.cyanogenmod.cmparts.activities.ColorPickerDialog.OnColorChangedListener;
 
 public class UIStatusBarActivity extends PreferenceActivity implements OnPreferenceChangeListener {
 
@@ -61,6 +64,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
     private static final String PREF_RESTART_STATUS_BAR = "pref_restart_status_bar";
 
     private static final String PREF_STATUS_BAR_BATTERY = "pref_status_bar_battery";
+
+    private static final String PREF_STATUS_BAR_BATTERY_COLOR = "pref_status_bar_battery_color";
 
     private static final String PREF_STATUS_BAR_CLOCK = "pref_status_bar_clock";
 
@@ -100,6 +105,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
     private Preference mRestartStatusBar;
 
     private ListPreference mStatusBarBattery;
+
+    private ListPreference mStatusBarBatteryColor;
 
     private ListPreference mStatusBarCmSignal;
 
@@ -203,6 +210,8 @@ int transparentNotificationBackgroundPref = Settings.System.getInt(getContentRes
 
         mStatusBarAmPm = (ListPreference) prefSet.findPreference(PREF_STATUS_BAR_AM_PM);
         mStatusBarBattery = (ListPreference) prefSet.findPreference(PREF_STATUS_BAR_BATTERY);
+        mStatusBarBatteryColor = (ListPreference) prefSet.
+                findPreference(PREF_STATUS_BAR_BATTERY_COLOR);
         mStatusBarCmSignal = (ListPreference) prefSet.findPreference(PREF_STATUS_BAR_CM_SIGNAL);
 
         int statusBarAmPm = Settings.System.getInt(getContentResolver(),
@@ -214,6 +223,11 @@ int transparentNotificationBackgroundPref = Settings.System.getInt(getContentRes
                 Settings.System.STATUS_BAR_BATTERY, 0);
         mStatusBarBattery.setValue(String.valueOf(statusBarBattery));
         mStatusBarBattery.setOnPreferenceChangeListener(this);
+
+        mStatusBarBatteryColor.setValue(Settings.System.getString(getContentResolver(),
+                Settings.System.STATUS_BAR_BATTERY_COLOR));
+        mStatusBarBatteryColor.setOnPreferenceChangeListener(this);
+        mStatusBarBatteryColor.setEnabled(statusBarBattery == 3);
 
         int signalStyle = Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_CM_SIGNAL_TEXT, 0);
@@ -266,6 +280,24 @@ int transparentNotificationBackgroundPref = Settings.System.getInt(getContentRes
             int statusBarBattery = Integer.valueOf((String) newValue);
             Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY,
                     statusBarBattery);
+            mStatusBarBatteryColor.setEnabled(statusBarBattery == 3);
+            return true;
+        } else if (preference == mStatusBarBatteryColor) {
+            String statusBarBatteryColor = (String) newValue;
+            if ("custom".equals(statusBarBatteryColor)) {
+                int color = -1;
+                String colorString = Settings.System.getString(getContentResolver(),
+                        Settings.System.STATUS_BAR_BATTERY_COLOR);
+                if (!TextUtils.isEmpty(colorString)) {
+                    try {
+                        color = Color.parseColor(colorString);
+                    } catch (IllegalArgumentException e) { }
+                    new ColorPickerDialog(this, mColorChangedListener, color).show();
+                }
+            } else {
+                Settings.System.putString(getContentResolver(),
+                        Settings.System.STATUS_BAR_BATTERY_COLOR, statusBarBatteryColor);
+            }
             return true;
         } else if (preference == mStatusBarCmSignal) {
             int signalStyle = Integer.valueOf((String) newValue);
@@ -416,7 +448,22 @@ int transparentNotificationBackgroundPref = Settings.System.getInt(getContentRes
         return false;
     }
 
-private int getStatusBarColor() {
+    private OnColorChangedListener mColorChangedListener = new OnColorChangedListener() {
+        @Override
+        public void colorChanged(int color) {
+            String colorString = String.format("#%02x%02x%02x", Color.red(color),
+                    Color.green(color), Color.blue(color));
+            Settings.System.putString(getContentResolver(),
+                    Settings.System.STATUS_BAR_BATTERY_COLOR, colorString);
+        }
+
+        @Override
+        public void colorUpdate(int color) {
+            // no-op
+        }
+    };
+
+    private int getStatusBarColor() {
         return Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_COLOR, 1);
     }
@@ -431,7 +478,7 @@ private int getStatusBarColor() {
             }
     };
 
-private int getNotificationBackgroundColor() {
+    private int getNotificationBackgroundColor() {
         return Settings.System.getInt(getContentResolver(),
                 Settings.System.NOTIFICATION_BACKGROUND_COLOR, 1);
     }
