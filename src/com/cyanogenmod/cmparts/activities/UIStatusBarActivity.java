@@ -73,6 +73,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private static final String PREF_STATUS_BAR_CLOCKCOLOR = "pref_status_bar_clockcolor";
 
+    private static final String PREF_STATUS_BAR_ALARM = "pref_status_bar_alarm";
+
     private static final String PREF_STATUS_BAR_CARRIER_LABEL =
             "pref_status_bar_carrier_label";
 
@@ -126,6 +128,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private Preference mNotificationBackgroundColor;
 
+    private CheckBoxPreference mStatusBarAlarm;
+
     private CheckBoxPreference mStatusBarCompactCarrier;
 
     private CheckBoxPreference mStatusBarBrightnessControl;
@@ -154,17 +158,19 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         mStatusBarColor.setOnPreferenceChangeListener(this);
         mNotificationBackgroundColor = (Preference) prefSet.findPreference(PREF_NOTIFICATION_BACKGROUND_COLOR);
         mNotificationBackgroundColor.setOnPreferenceChangeListener(this);
+        mStatusBarAlarm = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_ALARM);
         mStatusBarCompactCarrier = (CheckBoxPreference) prefSet
                 .findPreference(PREF_STATUS_BAR_COMPACT_CARRIER);
         mStatusBarBrightnessControl = (CheckBoxPreference) prefSet
                 .findPreference(PREF_STATUS_BAR_BRIGHTNESS_CONTROL);
         mStatusBarHeadset = (CheckBoxPreference) prefSet
                 .findPreference(PREF_STATUS_BAR_HEADSET);
-
         mStatusBarClock.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_CLOCK, 1) == 1));
         mStatusBarCenterClock.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_CENTERCLOCK, 1) == 1));
+        mStatusBarAlarm.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.STATUS_BAR_ALARM, 1) == 1));
         mStatusBarCompactCarrier.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_COMPACT_CARRIER, 0) == 1));
         mStatusBarBrightnessControl.setChecked((Settings.System.getInt(getContentResolver(),
@@ -420,6 +426,11 @@ int transparentNotificationBackgroundPref = Settings.System.getInt(getContentRes
         } else if (preference == mStatusBarClockColor) {
             ColorPickerDialog cp = new ColorPickerDialog(this, mClockColorListener, getClockColor());
             cp.show();
+            return true;
+        } else if (preference == mStatusBarAlarm) {
+            value = mStatusBarAlarm.isChecked();
+            Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_ALARM,
+                    value ? 1 : 0);
             return true;
         } else if (preference == mStatusBarCompactCarrier) {
             value = mStatusBarCompactCarrier.isChecked();
