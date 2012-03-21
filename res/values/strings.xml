@@ -101,7 +101,7 @@
     <string name="ui_status_bar_centerclock_title">Center clock</string>
     <string name="ui_status_bar_centerclock_summary">Clock will be centered if checked. Uncheck to move to the right.</string>
     <string name="ui_status_bar_clockcolor_title">Clock color</string>
-    <string name="ui_status_bar_clockcolor_summary">ffffffff</string>
+    <string name="ui_status_bar_clockcolor_summary">#ffffffff</string>
     <string name="ui_status_bar_battery_title">Battery status style</string>
     <string name="ui_status_bar_battery_summary">Display style of battery status</string>
     <string name="ui_status_bar_compact_carrier_title">Compact carrier label</string>
