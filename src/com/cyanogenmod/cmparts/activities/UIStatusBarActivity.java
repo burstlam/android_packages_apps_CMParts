@@ -157,7 +157,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         mStatusBarClock.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_CLOCK, 1) == 1));
         mStatusBarCenterClock.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_CENTERCLOCK, 0) == 1));
+                Settings.System.STATUS_BAR_CENTERCLOCK, 1) == 1));
         mStatusBarCompactCarrier.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_COMPACT_CARRIER, 0) == 1));
         mStatusBarBrightnessControl.setChecked((Settings.System.getInt(getContentResolver(),

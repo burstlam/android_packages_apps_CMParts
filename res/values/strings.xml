@@ -901,4 +901,9 @@
     <!-- Performance Settings : SD Read Ahead Cache Size -->
     <string name="pref_sd_readahead_title">SD Read Ahead Size</string>
     <string name="pref_sd_readahead_summary">Size of the SD Read Ahead Cache</string>
+
+    <!-- CMFontsChanger -->
+    <string name="fonts_change_title">Fonts Settings</string>
+    <string name="fonts_title">Change fonts</string>
+    <string name="fonts_summary">An option to change font type</string>
 </resources>
