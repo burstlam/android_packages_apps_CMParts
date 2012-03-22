@@ -89,6 +89,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private static final String PREF_TRANSPARENT_NOTIFICATION_BACKGROUND = "pref_transparent_notification_background";
 
+    private static final String PREF_RECENT_APPS_STATUS_BAR = "pref_recent_apps_status_bar";
+
     private static final String PREF_STATUS_BAR_BRIGHTNESS_CONTROL =
             "pref_status_bar_brightness_control";
 
@@ -115,6 +117,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
     private ListPreference mTransparentStatusBarPref;
 
     private ListPreference mTransparentNotificationBackgroundPref;
+
+    private CheckBoxPreference mRecentAppsStatusBar;
 
     private CheckBoxPreference mStatusBarClock;
 
@@ -218,6 +222,10 @@ int transparentNotificationBackgroundPref = Settings.System.getInt(getContentRes
                 Settings.System.STATUS_BAR_AM_PM, 2);
         mStatusBarAmPm.setValue(String.valueOf(statusBarAmPm));
         mStatusBarAmPm.setOnPreferenceChangeListener(this);
+
+        mRecentAppsStatusBar = (CheckBoxPreference) prefSet.findPreference(PREF_RECENT_APPS_STATUS_BAR);
+        mRecentAppsStatusBar.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.RECENT_APPS_STATUS_BAR, 0) == 1);
 
         int statusBarBattery = Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_BATTERY, 0);
@@ -429,6 +437,11 @@ int transparentNotificationBackgroundPref = Settings.System.getInt(getContentRes
         } else if (preference == mStatusBarColor) {
             SBColorPickerDialog sbcp = new SBColorPickerDialog(this, mStatusBarColorListener, getStatusBarColor());
             sbcp.show();
+            return true;
+        } else if (preference == mRecentAppsStatusBar) {
+            value = mRecentAppsStatusBar.isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.RECENT_APPS_STATUS_BAR, value ? 1 : 0);
             return true;
         } else if (preference == mStatusBarBrightnessControl) {
             value = mStatusBarBrightnessControl.isChecked();
