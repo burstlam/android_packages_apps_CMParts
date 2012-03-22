@@ -24,9 +24,6 @@
                         android:title="@string/ui_status_bar_toggle_brightness"
                         android:summary="@string/ui_status_bar_toggle_brightness_summary"
                         android:defaultValue="falses" />
-                <CheckBoxPreference android:key="pref_recent_apps_status_bar"
-                        android:title="@string/ui_status_bar_recent_apps_title"
-                        android:summary="@string/ui_status_bar_recent_apps_summary" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/notification_dropdown_settings_title">

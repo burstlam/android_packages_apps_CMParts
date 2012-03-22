@@ -910,7 +910,4 @@
     <string name="fonts_change_title">Fonts Settings</string>
     <string name="fonts_title">Change fonts</string>
     <string name="fonts_summary">An option to change font type</string>
-
-    <string name="ui_status_bar_recent_apps_title">Recent apps on status bar</string>
-    <string name="ui_status_bar_recent_apps_summary">Display at most 16 apps</string>
 </resources>
