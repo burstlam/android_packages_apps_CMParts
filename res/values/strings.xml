@@ -925,4 +925,9 @@
     <string name="pref_bootanimation_reset_title">Restore</string>
     <string name="pref_bootanimation_reset_summary">Restore to default bootanimation</string>
 
+    <!-- CMBattery Calibration -->
+    <string name="battery_calibrate_title">Battery Calibration</string>
+    <string name="battery_calibrate_summary">Launch Calibation program</string>
+
+
 </resources>

@@ -104,4 +104,13 @@
             android:title="@string/pref_gmaps_hack_title" android:summary="@string/pref_gmaps_hack_summary" />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/battery_calibrate_title">
+                 <PreferenceScreen android:key="battery_calibrate"
+                         android:title="@string/battery_calibrate_title" android:summary="@string/battery_calibrate_summary">
+                         <intent android:action="android.intent.action.MAIN"
+                                 android:targetPackage="com.cyanogenmod.batterymonitor"
+                                 android:targetClass="com.cyanogenmod.batterymonitor.activities.BatteryMonitor" />
+                  </PreferenceScreen>
+        </PreferenceCategory>
+
 </PreferenceScreen>
