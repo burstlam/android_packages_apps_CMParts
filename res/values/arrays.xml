@@ -854,6 +854,15 @@
         <item>3</item>
         <item>4</item>
     </string-array>
+    
+    <string-array name="entries_transparent_status_bar">
+        <item>Theme</item>
+        <item>ROM</item>
+        <item>Custom Color</item>
+        <item>Semi Transparent</item>
+        <item>Gradient</item>
+        <item>Transparent</item>
+    </string-array>
 
     <string-array name="values_transparent_status_bar">
         <item>0</item>
@@ -861,14 +870,16 @@
         <item>2</item>
         <item>3</item>
         <item>4</item>
+        <item>5</item>
     </string-array>
-    
-    <string-array name="entries_transparent_status_bar">
+
+    <string-array name="entries_transparent_notification_background">
         <item>Theme</item>
         <item>ROM</item>
         <item>Custom Color</item>
         <item>Transparent</item>
-        <item>Custom Image</item>
+        <item>Peeping Android</item>
+        <item>Choose an Image</item>
     </string-array>
 
     <string-array name="values_transparent_notification_background">
@@ -878,15 +889,6 @@
         <item>3</item>
         <item>4</item>
         <item>5</item>
-    </string-array>
-    
-    <string-array name="entries_transparent_notification_background">
-        <item>Theme</item>
-        <item>ROM</item>
-        <item>Custom Color</item>
-        <item>Transparent</item>
-        <item>Peeping Android</item>
-        <item>Choose an Image</item>
     </string-array>
 
     <string-array name="entries_sd_readahead">
