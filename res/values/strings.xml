@@ -910,4 +910,14 @@
     <string name="fonts_change_title">Fonts Settings</string>
     <string name="fonts_title">Change fonts</string>
     <string name="fonts_summary">An option to change font type</string>
+
+<!-- User interface: Boot animation -->
+    <string name="ui_bootanim_cat_title">Select Bootanimation</string>
+    <string name="pref_bootanimation_preview_title">Preview bootanimation</string>
+    <string name="pref_bootanimation_preview_summary">Select a bootanimation to watch now</string>
+    <string name="pref_bootanimation_title">Choose a bootanimation</string>
+    <string name="pref_bootanimation_summary">Pick a bootanimation from any folder</string>
+    <string name="pref_bootanimation_reset_title">Restore</string>
+    <string name="pref_bootanimation_reset_summary">Restore to default bootanimation</string>
+
 </resources>
