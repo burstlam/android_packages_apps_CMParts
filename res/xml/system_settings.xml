@@ -5,7 +5,7 @@
 
     <!-- Spare Parts -->
         <PreferenceScreen android:key="spareparts_settings"
-            android:title="@string/spareparts_title" >
+            android:title="@string/spareparts_title">
             <intent android:action="android.intent.action.MAIN"
                 android:targetPackage="com.android.spare_parts"
                 android:targetClass="com.android.spare_parts.MainActivity" />
@@ -13,7 +13,7 @@
 
      <!-- Dev Tools -->
         <PreferenceScreen android:key="devtools_settings"
-            android:title="@string/devtools_title" >
+            android:title="@string/devtools_title">
             <intent android:action="android.intent.action.MAIN"
                 android:targetPackage="com.android.development"
                 android:targetClass="com.android.development.MainActivity" />
@@ -21,7 +21,7 @@
 
         <!-- TS Calibrator -->
         <PreferenceScreen android:key="tscalibration_settings"
-            android:title="@string/tscalibration_title" >
+            android:title="@string/tscalibration_title">
             <intent android:action="android.intent.action.MAIN"
                 android:targetPackage="com.cyanogenmod.util.tscal"
                 android:targetClass="com.cyanogenmod.util.tscal.TSCalibration" />

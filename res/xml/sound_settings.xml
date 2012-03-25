@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+       <!-- DSPManager -->
+                <PreferenceScreen android:key="dspmanager_settings"
+                        android:title="@string/dspmanager_title">
+                        <intent android:action="android.intent.action.MAIN"
+                                android:targetPackage="com.bel.android.dspmanager"
+                                android:targetClass="com.bel.android.dspmanager.MainActivity" />
+                </PreferenceScreen>
+
         <PreferenceCategory android:key="call_category" android:title="@string/call_features_title">
 
 		<!-- Back button ends call -->

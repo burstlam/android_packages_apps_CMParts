@@ -884,6 +884,7 @@
     <string name="sound_flipping_down_snoozes_alarm_summary">No responsibility for being fired!</string>
     <string name="sound_call_me_louder_title">Call Me Louder</string>
     <string name="sound_call_me_louder_summary">Louder ringer when phone is inside bags</string>
+    <string name="dspmanager_title">DSP Manager</string>
 
     <!-- Performance : GMAPS hack -->
     <string name="pref_gmaps_hack_title">GMAPS hack</string>
