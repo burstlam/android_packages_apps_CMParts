@@ -1,17 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- General settings -->
-    <PreferenceCategory android:key="general_category"
-        android:title="@string/general_title">
+    <PreferenceCategory android:title="@string/developer_tools_title">
+
+    <!-- Spare Parts -->
+        <PreferenceScreen android:key="spareparts_settings"
+            android:title="@string/spareparts_title" >
+            <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="com.android.spare_parts"
+                android:targetClass="com.android.spare_parts.MainActivity" />
+        </PreferenceScreen>
+
+     <!-- Dev Tools -->
+        <PreferenceScreen android:key="devtools_settings"
+            android:title="@string/devtools_title" >
+            <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="com.android.development"
+                android:targetClass="com.android.development.MainActivity" />
+        </PreferenceScreen>
 
         <!-- TS Calibrator -->
         <PreferenceScreen android:key="tscalibration_settings"
-            android:title="@string/tscalibration_title" android:summary="@string/tscalibration_summary">
+            android:title="@string/tscalibration_title" >
             <intent android:action="android.intent.action.MAIN"
                 android:targetPackage="com.cyanogenmod.util.tscal"
                 android:targetClass="com.cyanogenmod.util.tscal.TSCalibration" />
         </PreferenceScreen>
+
+        <!-- Battery Calibrator -->
+                 <PreferenceScreen android:key="battery_calibrate"
+                         android:title="@string/battery_calibrate_title" >
+                         <intent android:action="android.intent.action.MAIN"
+                                 android:targetPackage="com.cyanogenmod.batterymonitor"
+                                 android:targetClass="com.cyanogenmod.batterymonitor.activities.BatteryMonitor" />
+                  </PreferenceScreen>
+        </PreferenceCategory>
 
         <!-- CMStats -->
         <PreferenceScreen android:key="cmstats_settings"
@@ -20,6 +43,10 @@
                 android:targetPackage="com.cyanogenmod.stats"
                 android:targetClass="com.cyanogenmod.stats.MainActivity" />
         </PreferenceScreen>
+
+    <!-- General settings -->
+    <PreferenceCategory android:key="general_category"
+        android:title="@string/general_title">
 
         <!-- Update Notifications -->
         <PreferenceScreen android:key="updatenotify_settings"
