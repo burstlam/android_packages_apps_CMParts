@@ -928,6 +928,9 @@
     <!-- CMBattery Calibration -->
     <string name="battery_calibrate_title">Battery Calibration</string>
     <string name="battery_calibrate_summary">Launch Calibation program</string>
+    <string name="tscalibration_title">Touch Calibrator Settings</string>
+    <string name="tscalibration_summary">Touch Calibrator tools</string>
+
 
     <string name="pref_show_honeycomb_clock">Show Honeycomb clock font</string>
     <string name="honeycomb_custom_app">Custom app for Honeycomb Lockscreen</string>
@@ -960,5 +963,4 @@
     
     <string name="title_pref_powersaving_sync_screen_off_delay">Sync time interval</string>
     <string name="summary_pref_powersaving_sync_screen_off_delay">How long to wait between each forced sync</string>
-
 </resources>
