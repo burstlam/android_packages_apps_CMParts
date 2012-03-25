@@ -937,6 +937,28 @@
     <string name="pref_quadrant_4">Quadrant 4 Activity</string>
     <string name="lockscreen_style_entry_honeycomb">Honeycomb</string>
 
+    <!-- Power Menu items -->
+    <string name="title_show_screenshot">Show ScreenShot in power menu</string>
+    <string name="title_show_power_saver">Show Powersaver Toggle in power menu</string>
 
+    <!-- Power Saving -->
+    <string name="powersaver_settings_title">Power saver settings</string>
+
+    <string name="powersaver_settings_title_head">Power saver</string>
+    <string name="powersaver_settings_title_subhead">Power saver settings</string>
+    <string name="powersaver_settings_summary_head">Power saver option, for better battery life</string>
+    <string name="title_pref_powersaving_pref_mode">Enable power saver</string>
+    <string name="summary_pref_powersaving_pref_mode"></string>
+    <string name="title_pref_powersaving_data_screen_off">Screen off data action</string>
+    <string name="summary_pref_powersaving_data_screen_off">What to do with the data when the screen turns off</string>
+
+    <string name="title_pref_powersaving_data_screen_off_delay">Data action delay</string>
+    <string name="summary_pref_powersaving_data_screen_off_delay">How long to wait before applying data action?</string>
+
+    <string name="title_pref_powersaving_sync_screen_off">Sync action</string>
+    <string name="summary_pref_powersaving_sync_screen_off">What to do with your syncage?!</string>
+    
+    <string name="title_pref_powersaving_sync_screen_off_delay">Sync time interval</string>
+    <string name="summary_pref_powersaving_sync_screen_off_delay">How long to wait between each forced sync</string>
 
 </resources>

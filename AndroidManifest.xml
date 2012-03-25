@@ -201,6 +201,13 @@
                 <category android:name="com.cyanogenmod.cmparts.SHORTCUT" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.PowerSaverActivity"
+            android:label="@string/powersaver_settings_title">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.cyanogenmod.cmparts.SHORTCUT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activities.CPUActivity"
             android:label="@string/cpu_settings_title">
             <intent-filter>

@@ -5,6 +5,14 @@
 	<PreferenceCategory android:key="general_category"
 		android:title="@string/general_title">
 
+		<!-- ScreenShot toggle -->
+               <CheckBoxPreference android:key="show_screenshot"
+                        android:title="@string/title_show_screenshot" />
+
+		<!-- Powersaver toggle -->
+               <CheckBoxPreference android:key="show_power_saver"
+                        android:title="@string/title_show_power_saver" />
+
 		<!-- Power prompt -->
 		<CheckBoxPreference android:key="power_dialog_prompt"
 			android:title="@string/pref_power_prompt_title" android:summary="@string/pref_power_prompt_summary"

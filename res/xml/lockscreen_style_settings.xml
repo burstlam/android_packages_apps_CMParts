@@ -101,24 +101,28 @@
     <PreferenceCategory android:title="@string/honeycomb_custom_app">
 
     <Preference
-        android:key="pref_quadrant_1"
         android:title="@string/pref_quadrant_1"
-        android:summary="" />
+        android:key="pref_quadrant_1"
+        android:summary=""
+        android:order="4" />
 
     <Preference
-        android:key="pref_quadrant_2"
         android:title="@string/pref_quadrant_2"
-        android:summary="" />
+        android:key="pref_quadrant_2"
+        android:summary=""
+        android:order="4" />
 
     <Preference
-       android:key="pref_quadrant_3"
        android:title="@string/pref_quadrant_3"
-       android:summary="" />
+       android:key="pref_quadrant_3"
+       android:summary=""
+       android:order="4" />
 
     <Preference
-       android:key="pref_quadrant_4"
        android:title="@string/pref_quadrant_4"
-       android:summary="" />
+       android:key="pref_quadrant_4"
+       android:summary=""
+       android:order="4" />
     </PreferenceCategory>
 
 </PreferenceScreen>

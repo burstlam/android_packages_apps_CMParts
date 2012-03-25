@@ -34,6 +34,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
+import android.provider.Settings.SettingNotFoundException;
 import android.net.Uri;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -86,6 +87,10 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
 
     private static final String OVERSCROLL_WEIGHT_PREF = "pref_overscroll_weight";
 
+    private static final String PREF_POWER_SAVER = "show_power_saver";
+
+    private static final String PREF_SCREENSHOT = "show_screenshot";
+
     private CheckBoxPreference mPinchReflowPref;
 
     private CheckBoxPreference mPowerPromptPref;
@@ -124,6 +129,10 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
 
     private static final String BOOT_PREVIEW_FILE = "preview_bootanim";
 
+    private CheckBoxPreference mShowPowerSaver;
+
+    private CheckBoxPreference mShowScreenShot;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,6 +141,22 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
         addPreferencesFromResource(R.xml.ui_settings);
 
         PreferenceScreen prefSet = getPreferenceScreen();
+
+        /* Power Menu Toggles*/
+        mShowPowerSaver = (CheckBoxPreference) findPreference(PREF_POWER_SAVER);
+        int powerSaverVal = 0;
+        try {
+            powerSaverVal = Settings.Secure.getInt(getContentResolver(), Settings.Secure.POWER_SAVER_MODE);
+        } catch (SettingNotFoundException e) {
+            mShowPowerSaver.setEnabled(false);
+            mShowPowerSaver
+                    .setSummary("You need to enable power saver before you can see it in the power menu.");
+        }
+        mShowPowerSaver.setChecked(powerSaverVal != 0);
+
+        mShowScreenShot = (CheckBoxPreference) findPreference(PREF_SCREENSHOT);
+        mShowScreenShot.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.POWER_DIALOG_SHOW_SCREENSHOT, 0) == 1);
 
         /* Preference Screens */
         mNotificationScreen = (PreferenceScreen) prefSet.findPreference(NOTIFICATION_SCREEN);
@@ -228,6 +253,18 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
             value = mShareScreenshotPref.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.SHARE_SCREENSHOT,
                     value ? 1 : 0);
+            return true;
+        } else if (preference == mShowPowerSaver) {
+            value = mShowPowerSaver.isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.POWER_DIALOG_SHOW_POWER_SAVER,
+                    ((CheckBoxPreference) preference).isChecked() ? 1 : 0);
+            return true;
+        } else if (preference == mShowScreenShot) {
+            value = mShowScreenShot.isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.POWER_DIALOG_SHOW_SCREENSHOT,
+                    ((CheckBoxPreference) preference).isChecked() ? 1 : 0);
             return true;
         } else if (preference == mPowerPromptPref) {
             value = mPowerPromptPref.isChecked();

@@ -10,6 +10,16 @@
             android:targetClass="com.cyanogenmod.cmparts.activities.ApplicationActivity" />
     </PreferenceScreen>
 
+     <!-- Power saver settings -->
+
+    <PreferenceScreen android:key="powersaver_settings"
+        android:title="@string/powersaver_settings_title_head"
+        android:summary="@string/powersaver_settings_summary_head">
+        <intent android:action="android.intent.action.MAIN"
+            android:targetPackage="com.cyanogenmod.cmparts"
+            android:targetClass="com.cyanogenmod.cmparts.activities.PowerSaverActivity" />
+    </PreferenceScreen>
+
     <!-- Display Settings -->
     <PreferenceScreen android:key="display_settings"
         android:title="@string/display_settings_title_head"
