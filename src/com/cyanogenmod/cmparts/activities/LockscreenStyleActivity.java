@@ -84,6 +84,16 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
 
     private static final String LOCKSCREEN_CUSTOM_BACKGROUND = "pref_lockscreen_background";
 
+    private static final String LOCKSCREEN_QUADRANT_1_PREF = "pref_quadrant_1";
+
+    private static final String LOCKSCREEN_QUADRANT_2_PREF = "pref_quadrant_2";
+
+    private static final String LOCKSCREEN_QUADRANT_3_PREF = "pref_quadrant_3";
+
+    private static final String LOCKSCREEN_QUADRANT_4_PREF = "pref_quadrant_4";
+    
+    private static final String LOCKSCREEN_CLOCK_PREF = "pref_clock";
+
     private PreferenceCategory mCategoryStyleGeneral;
 
     private PreferenceCategory mCategoryStyleLockscreen;
@@ -111,6 +121,20 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
     private ListPreference mRinglockStylePref;
 
     private Preference mCustomAppActivityPref;
+
+    private Preference mCurrentCustomActivityPreference;
+
+    private String mCurrentCustomActivityString;
+
+    private CheckBoxPreference mShowHoneyClock;
+
+    private Preference mHoneyQuadrant1Pref;
+
+    private Preference mHoneyQuadrant2Pref;
+
+    private Preference mHoneyQuadrant3Pref;
+
+    private Preference mHoneyQuadrant4Pref;
 
     private ListPreference mCustomBackground;
 
@@ -144,6 +168,13 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
                 Settings.System.LOCKSCREEN_STYLE_PREF, LockscreenStyle.getIdByStyle(LockscreenStyle.Ring)));
         mLockscreenStylePref.setValue(String.valueOf(LockscreenStyle.getIdByStyle(mLockscreenStyle)));
         mLockscreenStylePref.setOnPreferenceChangeListener(this);
+
+        mHoneyQuadrant1Pref = prefSet.findPreference(LOCKSCREEN_QUADRANT_1_PREF);
+        mHoneyQuadrant2Pref = prefSet.findPreference(LOCKSCREEN_QUADRANT_2_PREF);
+        mHoneyQuadrant3Pref = prefSet.findPreference(LOCKSCREEN_QUADRANT_3_PREF);
+        mHoneyQuadrant4Pref = prefSet.findPreference(LOCKSCREEN_QUADRANT_4_PREF);
+      
+        mShowHoneyClock = (CheckBoxPreference) prefSet.findPreference(LOCKSCREEN_CLOCK_PREF);
 
         /* Incall Style */
         mInCallStylePref = (ListPreference) prefSet.findPreference(IN_CALL_STYLE_PREF);
@@ -312,6 +343,30 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
             Settings.System.putInt(getContentResolver(),
                     Settings.System.LOCKSCREEN_CUSTOM_ICON_STYLE, value ? 2 : 1);
             return true;
+        } else if (preference == mHoneyQuadrant1Pref) {
+            mCurrentCustomActivityPreference = preference;
+            mCurrentCustomActivityString = Settings.System.LOCKSCREEN_CUSTOM_APP_HONEY_1;
+            mPicker.pickShortcut();
+            return true;
+        } else if (preference == mHoneyQuadrant2Pref) {
+            mCurrentCustomActivityPreference = preference;
+            mCurrentCustomActivityString = Settings.System.LOCKSCREEN_CUSTOM_APP_HONEY_2;
+            mPicker.pickShortcut();
+            return true;
+        } else if (preference == mHoneyQuadrant3Pref) {
+            mCurrentCustomActivityPreference = preference;
+            mCurrentCustomActivityString = Settings.System.LOCKSCREEN_CUSTOM_APP_HONEY_3;
+            mPicker.pickShortcut();
+            return true;
+        } else if (preference == mHoneyQuadrant4Pref) {
+            mCurrentCustomActivityPreference = preference;
+            mCurrentCustomActivityString = Settings.System.LOCKSCREEN_CUSTOM_APP_HONEY_4;
+            mPicker.pickShortcut();
+            return true;
+        } else if (preference == mShowHoneyClock) {
+            value = mShowHoneyClock.isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.CLOCK_FONT, value? 1 : 0);
         } else if (preference == mCustomAppActivityPref) {
             if (mLockscreenStyle == LockscreenStyle.Ring) {
                 final String[] items = getCustomRingAppItems();

@@ -94,4 +94,31 @@
         android:summary="@string/pref_lockscreen_ring_minimal_summary" 
         android:order="61" />
 
+    <CheckBoxPreference
+        android:title="@string/pref_show_honeycomb_clock"
+        android:key="pref_clock" />
+
+    <PreferenceCategory android:title="@string/honeycomb_custom_app">
+
+    <Preference
+        android:key="pref_quadrant_1"
+        android:title="@string/pref_quadrant_1"
+        android:summary="" />
+
+    <Preference
+        android:key="pref_quadrant_2"
+        android:title="@string/pref_quadrant_2"
+        android:summary="" />
+
+    <Preference
+       android:key="pref_quadrant_3"
+       android:title="@string/pref_quadrant_3"
+       android:summary="" />
+
+    <Preference
+       android:key="pref_quadrant_4"
+       android:title="@string/pref_quadrant_4"
+       android:summary="" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

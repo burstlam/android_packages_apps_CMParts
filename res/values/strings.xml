@@ -929,5 +929,14 @@
     <string name="battery_calibrate_title">Battery Calibration</string>
     <string name="battery_calibrate_summary">Launch Calibation program</string>
 
+    <string name="pref_show_honeycomb_clock">Show Honeycomb clock font</string>
+    <string name="honeycomb_custom_app">Custom app for Honeycomb Lockscreen</string>
+    <string name="pref_quadrant_1">Quadrant 1 Activity</string>
+    <string name="pref_quadrant_2">Quadrant 2 Activity</string>
+    <string name="pref_quadrant_3">Quadrant 3 Activity</string>
+    <string name="pref_quadrant_4">Quadrant 4 Activity</string>
+    <string name="lockscreen_style_entry_honeycomb">Honeycomb</string>
+
+
 
 </resources>
