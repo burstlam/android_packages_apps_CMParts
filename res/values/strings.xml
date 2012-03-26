@@ -952,6 +952,9 @@
 
     <!-- Power Saving -->
     <string name="powersaver_settings_title">Power saver settings</string>
+    <string name="pref_cat_data">Data Strategy</string>
+    <string name="pref_cat_sync">Sync Strategy</string>
+    <string name="pref_cat_advance">Advanced Settings</string>
 
     <string name="powersaver_settings_title_head">Power saver</string>
     <string name="powersaver_settings_title_subhead">Power saver settings</string>
@@ -969,4 +972,9 @@
     
     <string name="title_pref_powersaving_sync_screen_off_delay">Sync time interval</string>
     <string name="summary_pref_powersaving_sync_screen_off_delay">How long to wait between each forced sync</string>
+
+    <string name="title_pref_sync_data_mobile_mode">Sync Mobile Data Prefrence</string>
+    <string name="title_pref_sync_data_mode">Sync Data Usage</string>
+    <string name="title_pref_screen_off_wifi_action">Screen off Wi-Fi Action</string>
+
 </resources>

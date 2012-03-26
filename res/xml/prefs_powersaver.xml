@@ -14,7 +14,7 @@
      </PreferenceCategory>
   <PreferenceCategory
     android:key="cat_data"
-    android:title="Data">
+    android:title="@string/pref_cat_data">
 
     <ListPreference
       android:entries="@array/pref_powersaving_data_screen_off_entries"
@@ -36,7 +36,7 @@
 
   <PreferenceCategory
     android:key="cat_sync"
-    android:title="Sync">
+    android:title="@string/pref_cat_sync">
 
     <ListPreference
       android:entries="@array/pref_powersaving_sync_screen_off_entries"
@@ -57,25 +57,25 @@
 
   <PreferenceCategory
     android:key="advanced"
-    android:title="Advanced Settings">
+    android:title="@string/pref_cat_advance">
 
     <ListPreference
       android:entries="@array/powersaving_screen_off_wifi_entries"
       android:entryValues="@array/powersaving_screen_off_wifi_values"
       android:key="screen_off_wifi_action"
-      android:title="Screen-off Wi-Fi action" />
+      android:title="@string/title_pref_screen_off_wifi_action" />
 
     <ListPreference
       android:entries="@array/powersaving_sync_data_mode_entries"
       android:entryValues="@array/powersaving_sync_data_mode_values"
       android:key="sync_data_mode"
-      android:title="Sync data usage" />
+      android:title="@string/title_pref_sync_data_mode" />
 
     <ListPreference
       android:entries="@array/powersaving_sync_data_mobile_mode_entries"
       android:entryValues="@array/powersaving_sync_data_mobile_mode_values"
       android:key="sync_data_mobile_mode"
-      android:title="Sync mobile data preference" />
+      android:title="@string/title_pref_sync_data_mobile_mode" />
 
   </PreferenceCategory>
 </PreferenceScreen>
