@@ -165,7 +165,7 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
         mLockscreenStylePref = (ListPreference) prefSet.findPreference(LOCKSCREEN_STYLE_PREF);
         mLockscreenStyle = LockscreenStyle.getStyleById(
                 Settings.System.getInt(getContentResolver(),
-                Settings.System.LOCKSCREEN_STYLE_PREF, LockscreenStyle.getIdByStyle(LockscreenStyle.Ring)));
+                Settings.System.LOCKSCREEN_STYLE_PREF, LockscreenStyle.getIdByStyle(LockscreenStyle.Lense)));
         mLockscreenStylePref.setValue(String.valueOf(LockscreenStyle.getIdByStyle(mLockscreenStyle)));
         mLockscreenStylePref.setOnPreferenceChangeListener(this);
 
