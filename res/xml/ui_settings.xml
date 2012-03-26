@@ -11,7 +11,8 @@
 
 		<!-- Powersaver toggle -->
                <CheckBoxPreference android:key="show_power_saver"
-                        android:title="@string/title_show_power_saver" />
+                        android:title="@string/title_show_power_saver"
+                        android:summary="@string/summary_show_power_saver" />
 
 		<!-- Power prompt -->
 		<CheckBoxPreference android:key="power_dialog_prompt"

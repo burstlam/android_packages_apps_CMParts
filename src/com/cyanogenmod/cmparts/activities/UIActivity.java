@@ -150,7 +150,7 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
         } catch (SettingNotFoundException e) {
             mShowPowerSaver.setEnabled(false);
             mShowPowerSaver
-                    .setSummary("You need to enable power saver before you can see it in the power menu.");
+                    .setSummary(R.string.summary_show_power_saver);
         }
         mShowPowerSaver.setChecked(powerSaverVal != 0);
 
