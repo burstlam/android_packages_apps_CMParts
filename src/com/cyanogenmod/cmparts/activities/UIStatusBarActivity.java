@@ -472,40 +472,12 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                     Settings.System.STATUS_BAR_COMPACT_CARRIER, value ? 1 : 0);
             return true;
         } else if (preference == mStatusBarColor) {
-            final CMDProcessor cmd = new CMDProcessor();
             SBColorPickerDialog sbcp = new SBColorPickerDialog(this, mStatusBarColorListener, getStatusBarColor());
             sbcp.show();
-            new AlertDialog.Builder(this)
-            .setTitle(R.string.reboot_notice_title)
-            .setMessage(R.string.reboot_notice_summary)
-            .setPositiveButton(com.android.internal.R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                             cmd.su.runWaitFor("pkill -TERM -f  com.android.systemui");
-                    }
-            })
-            .setNegativeButton(com.android.internal.R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                    }
-             })
-            .show();
             return true;
         } else if (preference == mNotificationBackgroundColor) {
-            final CMDProcessor cmd = new CMDProcessor();
             NBColorPickerDialog nbcp = new NBColorPickerDialog(this, mNotificationBackgroundColorListener, getNotificationBackgroundColor());
             nbcp.show();
-            new AlertDialog.Builder(this)
-            .setTitle(R.string.reboot_notice_title)
-            .setMessage(R.string.reboot_notice_summary)
-            .setPositiveButton(com.android.internal.R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                             cmd.su.runWaitFor("pkill -TERM -f  com.android.systemui");
-                    }
-            })
-            .setNegativeButton(com.android.internal.R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                    }
-             })
-            .show();
             return true; 
         } else if (preference == mStatusBarBrightnessControl) {
             value = mStatusBarBrightnessControl.isChecked();
