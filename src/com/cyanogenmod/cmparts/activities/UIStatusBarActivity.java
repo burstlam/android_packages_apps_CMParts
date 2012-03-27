@@ -16,11 +16,14 @@
 
 package com.cyanogenmod.cmparts.activities;
 
-import android.graphics.Color;
+
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
-import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
@@ -29,8 +32,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import android.provider.MediaStore;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.CheckBoxPreference;
@@ -47,6 +48,8 @@ import android.text.InputFilter.LengthFilter;
 import android.text.TextUtils;
 import android.widget.EditText;
 import android.net.Uri;
+import com.cyanogenmod.cmparts.utils.CMDProcessor;
+import com.cyanogenmod.cmparts.utils.Helpers;
 
 import java.io.FileOutputStream;
 import java.io.File;
@@ -140,6 +143,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private File notificationBackgroundImage;
 
+    private AlertDialog alertDialog;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -202,7 +207,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         mStatusBarColor.setSummary(Integer.toHexString(statusBarColor));
         mStatusBarColor.setEnabled(transparentStatusBarPref == 2);
 
-int transparentNotificationBackgroundPref = Settings.System.getInt(getContentResolver(),
+        int transparentNotificationBackgroundPref = Settings.System.getInt(getContentResolver(),
                 Settings.System.TRANSPARENT_NOTIFICATION_BACKGROUND, 0);
         mTransparentNotificationBackgroundPref = (ListPreference) prefSet.findPreference(PREF_TRANSPARENT_NOTIFICATION_BACKGROUND);
         mTransparentNotificationBackgroundPref.setValue(String.valueOf(transparentNotificationBackgroundPref));
@@ -261,7 +266,7 @@ int transparentNotificationBackgroundPref = Settings.System.getInt(getContentRes
                 Settings.System.CARRIER_LABEL_CUSTOM_STRING);
 
         if (statusBarCarrierLabelCustom == null) {
-            statusBarCarrierLabelCustom = "CyanogenMod 7";
+            statusBarCarrierLabelCustom = "BurstKANG@HIAPK";
             Settings.System.putString(getContentResolver(),
                     Settings.System.CARRIER_LABEL_CUSTOM_STRING,
                     statusBarCarrierLabelCustom);
@@ -274,6 +279,7 @@ int transparentNotificationBackgroundPref = Settings.System.getInt(getContentRes
         mStatusBarCarrierLabelCustom.setOnPreferenceChangeListener(this);
         mStatusBarCarrierLabelCustom.setEnabled(
                 statusBarCarrierLabel == 3);
+
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -323,12 +329,27 @@ int transparentNotificationBackgroundPref = Settings.System.getInt(getContentRes
                     carrierLabelCustom);
             return true;
         } else if (preference == mTransparentStatusBarPref) {
+            final CMDProcessor cmd = new CMDProcessor();
             int transparentStatusBarPref = Integer.parseInt(String.valueOf(newValue));
             mStatusBarColor.setEnabled(transparentStatusBarPref == 2);
             Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_STATUS_BAR,
                     transparentStatusBarPref);
+            new AlertDialog.Builder(this)
+            .setTitle(R.string.reboot_notice_title)
+            .setMessage(R.string.reboot_notice_summary)
+            .setPositiveButton(com.android.internal.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                             cmd.su.runWaitFor("pkill -TERM -f  com.android.systemui");
+                    }
+            })
+            .setNegativeButton(com.android.internal.R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    }
+             })
+            .show();
             return true;
         } else if (preference == mTransparentNotificationBackgroundPref) {
+            final CMDProcessor cmd = new CMDProcessor();
             int transparentNotificationBackgroundPref = Integer.parseInt(String.valueOf(newValue));
             if (transparentNotificationBackgroundPref == 5) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
@@ -365,6 +386,19 @@ int transparentNotificationBackgroundPref = Settings.System.getInt(getContentRes
             mNotificationBackgroundColor.setEnabled(transparentNotificationBackgroundPref == 2);
             Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_NOTIFICATION_BACKGROUND,
                     transparentNotificationBackgroundPref);
+            new AlertDialog.Builder(this)
+            .setTitle(R.string.reboot_notice_title)
+            .setMessage(R.string.reboot_notice_summary)
+            .setPositiveButton(com.android.internal.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                             cmd.su.runWaitFor("pkill -TERM -f  com.android.systemui");
+                    }
+            })
+            .setNegativeButton(com.android.internal.R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    }
+             })
+            .show();
             return true;
         }
         return false;
@@ -387,13 +421,13 @@ int transparentNotificationBackgroundPref = Settings.System.getInt(getContentRes
                 // --user from pressing it repeatedly despite warnings
                 // TODO: enable/disabled gui element if systemui service is running/stopped
                 mRestartStatusBar.setEnabled(false);
-                mRestartStatusBar.setSummary("Stopping the status bar service...");
+                mRestartStatusBar.setSummary(R.string.reboot_notice_summary2);
                 Runtime.getRuntime().exec(str1);
                 // schedule an attempt to restart the status bar service
                 Handler handleRestartSystemUI = new Handler();
                 handleRestartSystemUI.postDelayed(new Runnable() {
                     public void run() {
-                        mRestartStatusBar.setSummary("Attempting to restart the status bar service...");
+                        mRestartStatusBar.setSummary(R.string.reboot_notice_summary3);
                         try {
                             Runtime.getRuntime().exec(str2);
                         } catch (Exception e){
@@ -405,11 +439,11 @@ int transparentNotificationBackgroundPref = Settings.System.getInt(getContentRes
                 Handler handleReenableGUIElement = new Handler();
                 handleReenableGUIElement.postDelayed(new Runnable() {
                     public void run() {
-                        mRestartStatusBar.setSummary("If the status bar fails to restart,\nyou may have to reboot your device.");
+                        mRestartStatusBar.setSummary(R.string.reboot_notice_summary4);
                         mRestartStatusBar.setEnabled(true);
                     }
                 }, 20000);
-                Toast.makeText(getApplicationContext(), "Restarting status bar\nin 10-30 seconds" ,Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.reboot_notice_summary4 ,Toast.LENGTH_LONG).show();
             } catch (Exception e){
                 Log.e("killall", "failed to restart statusbar", e);
             }
@@ -438,9 +472,41 @@ int transparentNotificationBackgroundPref = Settings.System.getInt(getContentRes
                     Settings.System.STATUS_BAR_COMPACT_CARRIER, value ? 1 : 0);
             return true;
         } else if (preference == mStatusBarColor) {
+            final CMDProcessor cmd = new CMDProcessor();
             SBColorPickerDialog sbcp = new SBColorPickerDialog(this, mStatusBarColorListener, getStatusBarColor());
             sbcp.show();
+            new AlertDialog.Builder(this)
+            .setTitle(R.string.reboot_notice_title)
+            .setMessage(R.string.reboot_notice_summary)
+            .setPositiveButton(com.android.internal.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                             cmd.su.runWaitFor("pkill -TERM -f  com.android.systemui");
+                    }
+            })
+            .setNegativeButton(com.android.internal.R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    }
+             })
+            .show();
             return true;
+        } else if (preference == mNotificationBackgroundColor) {
+            final CMDProcessor cmd = new CMDProcessor();
+            NBColorPickerDialog nbcp = new NBColorPickerDialog(this, mNotificationBackgroundColorListener, getNotificationBackgroundColor());
+            nbcp.show();
+            new AlertDialog.Builder(this)
+            .setTitle(R.string.reboot_notice_title)
+            .setMessage(R.string.reboot_notice_summary)
+            .setPositiveButton(com.android.internal.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                             cmd.su.runWaitFor("pkill -TERM -f  com.android.systemui");
+                    }
+            })
+            .setNegativeButton(com.android.internal.R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    }
+             })
+            .show();
+            return true; 
         } else if (preference == mStatusBarBrightnessControl) {
             value = mStatusBarBrightnessControl.isChecked();
             Settings.System.putInt(getContentResolver(),
@@ -451,10 +517,6 @@ int transparentNotificationBackgroundPref = Settings.System.getInt(getContentRes
             Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_HEADSET,
                     value ? 1 : 0);
             return true;
-        } else if (preference == mNotificationBackgroundColor) {
-            NBColorPickerDialog nbcp = new NBColorPickerDialog(this, mNotificationBackgroundColorListener, getNotificationBackgroundColor());
-            nbcp.show();
-            return true; 
         }
         return false;
     }

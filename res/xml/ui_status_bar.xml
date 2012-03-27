@@ -19,7 +19,8 @@
                 <Preference android:key="pref_status_bar_color"
                         android:dialogTitle="@string/ui_status_bar_color_title"
                         android:title="@string/ui_status_bar_color_title"
-                        android:summary="@string/ui_status_bar_color_summary"/>
+                        android:summary="@string/ui_status_bar_color_summary"
+                        android:defaultValue="-1"/>
                 <CheckBoxPreference android:key="pref_status_bar_brightness_control"
                         android:title="@string/ui_status_bar_toggle_brightness"
                         android:summary="@string/ui_status_bar_toggle_brightness_summary"
@@ -36,7 +37,8 @@
                 <Preference android:key="pref_notification_background_color"
                         android:dialogTitle="@string/ui_notification_background_color_title"
                         android:title="@string/ui_notification_background_color_title"
-                        android:summary="@string/ui_notification_background_color_summary"/>
+                        android:summary="@string/ui_notification_background_color_summary"
+                        android:defaultValue="-1"/>
     </PreferenceCategory>
 
   <PreferenceCategory android:title="@string/clock_settings_title">
@@ -51,7 +53,7 @@
                 <Preference android:key="pref_status_bar_clockcolor"
                        android:title="@string/ui_status_bar_clockcolor_title"
                        android:summary="@string/ui_status_bar_clockcolor_summary"
-                       android:defaultValue="#ffffffff" />
+                       android:defaultValue="ffffffff" />
 		<ListPreference android:key="pref_status_bar_am_pm"
 			android:dialogTitle="@string/ui_status_bar_am_pm_title"
 			android:title="@string/ui_status_bar_am_pm_title"

@@ -55,10 +55,8 @@ public class PowerSaverActivity extends PreferenceActivity implements Preference
             PreferenceCategory generalCategory = (PreferenceCategory) findPreference(GENERAL_CATEGORY);
 
             mPowerSaverEnabled = (CheckBoxPreference)findPreference(PREF_MODE);
-            mPowerSaverEnabled
-                    .setChecked(Settings.Secure.getInt(
-                            getContentResolver(), Settings.Secure.POWER_SAVER_MODE,
-                            PowerSaverService.POWER_SAVER_MODE_OFF) == PowerSaverService.POWER_SAVER_MODE_ON);
+            mPowerSaverEnabled.setChecked(Settings.Secure.getInt(getContentResolver(), Settings.Secure.POWER_SAVER_MODE,
+                            0) == 1);
 
             mDataMode = (ListPreference) findPreference(PREF_DATA_MODE);
             mDataMode.setOnPreferenceChangeListener(this);

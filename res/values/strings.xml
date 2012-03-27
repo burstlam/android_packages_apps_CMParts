@@ -978,4 +978,11 @@
     <string name="title_pref_sync_data_mode">Sync Data Usage</string>
     <string name="title_pref_screen_off_wifi_action">Screen off Wi-Fi Action</string>
 
+    <!-- Warning dialog Box -->
+    <string name="reboot_notice_title">Restart Status Bar</string>
+    <string name="reboot_notice_summary">For changes to take affect the status bar needs to be restarted.\n\nRestart now?</string>
+    <string name="reboot_notice_summary2">Stopping the status bar service...</string>
+    <string name="reboot_notice_summary3">Attempting to restart the status bar service...</string>
+    <string name="reboot_notice_summary4">If the status bar fails to restart,\nyou may have to reboot your device.</string>
+    <string name="reboot_notice_summary5">Restarting status bar\nin 10-30 seconds</string>
 </resources>
