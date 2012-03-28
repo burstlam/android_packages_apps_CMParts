@@ -929,6 +929,7 @@
     <string name="pref_bootanimation_reset_summary">Restore to default bootanimation</string>
 
     <!-- System Settings :CMBattery Calibration -->
+    <string name="stk_title">SIM toolkit</string>
     <string name="developer_tools_title">Developer and System Tools</string>
     <string name="battery_calibrate_title">Battery Calibration</string>
     <string name="tscalibration_title">Touch Calibrator Settings</string>

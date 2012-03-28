@@ -17,6 +17,14 @@
                 android:targetClass="com.android.development.Development" />
         </PreferenceScreen>
 
+     <!-- SIM toolkit -->
+        <PreferenceScreen android:key="stk_settings"
+            android:title="@string/stk_title">
+            <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="com.android.stk" 
+                android:targetClass="com.android.stk.StkMenuActivity" />
+         </PreferenceScreen>
+
     <PreferenceCategory android:title="@string/developer_tools_title">
 
         <!-- TS Calibrator -->
