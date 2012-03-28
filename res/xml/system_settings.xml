@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="@string/developer_tools_title">
-
     <!-- Spare Parts -->
         <PreferenceScreen android:key="spareparts_settings"
             android:title="@string/spareparts_title">
             <intent android:action="android.intent.action.MAIN"
                 android:targetPackage="com.android.spare_parts"
-                android:targetClass="com.android.spare_parts.MainActivity" />
+                android:targetClass="com.android.spare_parts.SpareParts" />
         </PreferenceScreen>
 
      <!-- Dev Tools -->
@@ -16,8 +14,10 @@
             android:title="@string/devtools_title">
             <intent android:action="android.intent.action.MAIN"
                 android:targetPackage="com.android.development"
-                android:targetClass="com.android.development.MainActivity" />
+                android:targetClass="com.android.development.Development" />
         </PreferenceScreen>
+
+    <PreferenceCategory android:title="@string/developer_tools_title">
 
         <!-- TS Calibrator -->
         <PreferenceScreen android:key="tscalibration_settings"
@@ -36,6 +36,10 @@
                   </PreferenceScreen>
         </PreferenceCategory>
 
+    <!-- General settings -->
+    <PreferenceCategory android:key="general_category"
+        android:title="@string/general_title">
+
         <!-- CMStats -->
         <PreferenceScreen android:key="cmstats_settings"
             android:title="@string/cmstats_title" android:summary="@string/cmstats_summary">
@@ -44,9 +48,6 @@
                 android:targetClass="com.cyanogenmod.stats.MainActivity" />
         </PreferenceScreen>
 
-    <!-- General settings -->
-    <PreferenceCategory android:key="general_category"
-        android:title="@string/general_title">
 
         <!-- Update Notifications -->
         <PreferenceScreen android:key="updatenotify_settings"
