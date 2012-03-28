@@ -100,7 +100,7 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
 
     private static final String GMAPS_HACK_PERSIST_PROP = "persist.sys.gmaps_hack";
 
-    private static final String GMAPS_HACK_DEFAULT = "0";
+    private static final String GMAPS_HACK_DEFAULT = "1";
 
     private static final String LOCK_HOME_PREF = "pref_lock_home";
 
@@ -116,9 +116,9 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
 
     public static final String SDCARD_PREF_DEFAULT = "2048";
 
-    private static final int LOCK_HOME_DEFAULT = 0;
+    private static final int LOCK_HOME_DEFAULT = 1;
 
-    private static final int LOCK_MMS_DEFAULT = 0;
+    private static final int LOCK_MMS_DEFAULT = 1;
 
     public static final String KSM_PREF = "pref_ksm";
 
