@@ -958,6 +958,7 @@
     <string name="title_show_power_saver">Show Powersaver Toggle in power menu</string>
     <string name="title_show_airplane_mode">Show Airplane Mode Toggle in power menu</string>
     <string name="summary_show_power_saver">You need to enable power saver before you can see it in the power menu.</string>
+    <string name="title_show_profile">Show Profile Toggle in power menu</string>
 
     <!-- Power Saving -->
     <string name="powersaver_settings_title">Power saver settings</string>
