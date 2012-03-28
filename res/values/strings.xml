@@ -890,7 +890,7 @@
 
     <!-- Performance : GMAPS hack -->
     <string name="pref_gmaps_hack_title">GMAPS hack</string>
-    <string name="pref_gmaps_hack_summary">Make NetworkLocationService killable. Frees some RAM, but Latitude isn\'t reporting location any more (requires reboot)</string>
+    <string name="pref_gmaps_hack_summary">Make NetworkLocationService killable. Frees some RAM, but Latitude isn\'t reporting location any more (requires restart of Maps)</string>
 
     <!-- Performance : Kernel tweakings -->
     <string name="pref_iosched_title">IO Scheduler</string>
