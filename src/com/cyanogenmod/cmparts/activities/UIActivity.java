@@ -91,6 +91,8 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
 
     private static final String PREF_SCREENSHOT = "show_screenshot";
 
+    private static final String PREF_AIRPLANE_MODE = "show_airplane_mode";
+
     private CheckBoxPreference mPinchReflowPref;
 
     private CheckBoxPreference mPowerPromptPref;
@@ -133,6 +135,8 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
 
     private CheckBoxPreference mShowScreenShot;
 
+    private CheckBoxPreference mShowAirplaneMode;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -158,6 +162,10 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
         mShowScreenShot = (CheckBoxPreference) findPreference(PREF_SCREENSHOT);
         mShowScreenShot.setChecked(Settings.System.getInt(getContentResolver(),
                 Settings.System.POWER_DIALOG_SHOW_SCREENSHOT, 0) == 1);
+
+        mShowAirplaneMode = (CheckBoxPreference) findPreference(PREF_AIRPLANE_MODE);
+        mShowAirplaneMode.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.POWER_DIALOG_SHOW_AIRPLANE_MODE, 0) == 1);
 
         /* Preference Screens */
         mNotificationScreen = (PreferenceScreen) prefSet.findPreference(NOTIFICATION_SCREEN);
@@ -265,6 +273,12 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
             value = mShowScreenShot.isChecked();
             Settings.System.putInt(getContentResolver(),
                     Settings.System.POWER_DIALOG_SHOW_SCREENSHOT,
+                    ((CheckBoxPreference) preference).isChecked() ? 1 : 0);
+            return true;
+        } else if (preference == mShowAirplaneMode) {
+            value = mShowAirplaneMode.isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.POWER_DIALOG_SHOW_AIRPLANE_MODE,
                     ((CheckBoxPreference) preference).isChecked() ? 1 : 0);
             return true;
         } else if (preference == mPowerPromptPref) {

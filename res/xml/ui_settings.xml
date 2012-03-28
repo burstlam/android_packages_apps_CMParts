@@ -5,6 +5,10 @@
 	<PreferenceCategory android:key="general_category"
 		android:title="@string/general_title">
 
+		<!-- Airplane Mode toggle -->
+               <CheckBoxPreference android:key="show_airplane_mode"
+                        android:title="@string/title_show_airplane_mode" />
+
 		<!-- ScreenShot toggle -->
                <CheckBoxPreference android:key="show_screenshot"
                         android:title="@string/title_show_screenshot" />
