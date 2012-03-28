@@ -67,8 +67,8 @@ public class CPUActivity extends PreferenceActivity implements
     private String mMaxFrequencyFormat;
     private String mMaxCdFrequencyFormat;
     private String mMaxSoFrequencyFormat;
-    private ListPreference mMaxChFrequencyPref;
-    private ListPreference mMaxBatFrequencyPref
+    private String mMaxChFrequencyFormat;
+    private String mMaxBatFrequencyFormat;
 
     private Preference mCurFrequencyPref;
     private ListPreference mGovernorPref;
