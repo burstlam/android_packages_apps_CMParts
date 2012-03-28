@@ -95,6 +95,8 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
 
     private static final String PREF_PROFILE = "show_profile";
 
+    private static final String PREF_SILENT = "show_silent";
+
     private CheckBoxPreference mPinchReflowPref;
 
     private CheckBoxPreference mPowerPromptPref;
@@ -141,6 +143,8 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
 
     private CheckBoxPreference mShowProfile;
 
+    private CheckBoxPreference mShowSilent;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -174,6 +178,10 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
         mShowProfile = (CheckBoxPreference) findPreference(PREF_PROFILE);
         mShowProfile.setChecked(Settings.System.getInt(getContentResolver(),
                 Settings.System.POWER_DIALOG_SHOW_PROFILE, 0) == 1);
+
+        mShowSilent = (CheckBoxPreference) findPreference(PREF_SILENT);
+        mShowSilent.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.POWER_DIALOG_SHOW_SILENT, 0) == 1);
 
         /* Preference Screens */
         mNotificationScreen = (PreferenceScreen) prefSet.findPreference(NOTIFICATION_SCREEN);
@@ -293,6 +301,12 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
             value = mShowProfile.isChecked();
             Settings.System.putInt(getContentResolver(),
                     Settings.System.POWER_DIALOG_SHOW_PROFILE,
+                    ((CheckBoxPreference) preference).isChecked() ? 1 : 0);
+            return true;
+        } else if (preference == mShowSilent) {
+            value = mShowSilent.isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.POWER_DIALOG_SHOW_SILENT,
                     ((CheckBoxPreference) preference).isChecked() ? 1 : 0);
             return true;
         } else if (preference == mPowerPromptPref) {

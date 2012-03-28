@@ -21,6 +21,10 @@
                <CheckBoxPreference android:key="show_profile"
                         android:title="@string/title_show_profile" />
 
+		<!-- Profile toggle -->
+               <CheckBoxPreference android:key="show_silent"
+                        android:title="@string/title_show_silent" />
+
 		<!-- Power prompt -->
 		<CheckBoxPreference android:key="power_dialog_prompt"
 			android:title="@string/pref_power_prompt_title" android:summary="@string/pref_power_prompt_summary"
