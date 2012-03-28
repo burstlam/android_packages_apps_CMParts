@@ -155,7 +155,8 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
         mShowPowerSaver.setChecked(powerSaverVal != 0);
 
         mShowScreenShot = (CheckBoxPreference) findPreference(PREF_SCREENSHOT);
-        mShowScreenShot.setOnPreferenceChangeListener(this);
+        mShowScreenShot.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.POWER_DIALOG_SHOW_SCREENSHOT, 0) == 1);
 
         /* Preference Screens */
         mNotificationScreen = (PreferenceScreen) prefSet.findPreference(NOTIFICATION_SCREEN);
