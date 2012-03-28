@@ -51,7 +51,18 @@ public class CPUReceiver extends BroadcastReceiver {
         if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
             setScreenOffCPU(ctx, true);
         } else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
-            setScreenOffCPU(ctx, false);
+            if (uiMode == Configuration.UI_MODE_TYPE_CAR) {
+                if (!setCarDockCPU(ctx, true))
+        setScreenOffCPU(ctx, false);
+            } else {
+                setScreenOffCPU(ctx, false);
+            }
+        } else if (intent.getAction().equals(Intent.ACTION_DOCK_EVENT)) {
+            int state = intent.getIntExtra(Intent.EXTRA_DOCK_STATE, Intent.EXTRA_DOCK_STATE_UNDOCKED);
+            if (state == Intent.EXTRA_DOCK_STATE_CAR)
+                setCarDockCPU(ctx, true);
+            else if (state == Intent.EXTRA_DOCK_STATE_UNDOCKED)
+                setCarDockCPU(ctx, false);
         } else if (SystemProperties.getBoolean(CPU_SETTINGS_PROP, false) == false
                 && intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
             SystemProperties.set(CPU_SETTINGS_PROP, "true");
@@ -87,6 +98,25 @@ public class CPUReceiver extends BroadcastReceiver {
                 Log.i(TAG, "Normal (screen on) max CPU freq restored");
             }
         }
+    }
+
+    private boolean setCarDockCPU(Context ctx, boolean carDock) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+        String maxFrequency = prefs.getString(CPUActivity.MAX_FREQ_PREF, null);
+        String maxCdFrequency = prefs.getString(CPUActivity.CD_MAX_FREQ_PREF, null);
+        if (maxCdFrequency == null || maxFrequency == null) {
+            Log.i(TAG, "CarDock or normal max CPU frequency not saved. No change.");
+            return false;
+        } else {
+            if (carDock) {
+                CPUActivity.writeOneLine(CPUActivity.FREQ_MAX_FILE, maxCdFrequency);
+                Log.i(TAG, "CarDock max CPU freq set");
+            } else {
+                CPUActivity.writeOneLine(CPUActivity.FREQ_MAX_FILE, maxFrequency);
+                Log.i(TAG, "Normal max CPU freq restored");
+            }
+        }
+        return true;
     }
 
     private void configureCPU(Context ctx) {

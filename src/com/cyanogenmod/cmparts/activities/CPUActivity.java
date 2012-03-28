@@ -51,6 +51,7 @@ public class CPUActivity extends PreferenceActivity implements
     public static final String GOVERNOR = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
     public static final String MIN_FREQ_PREF = "pref_freq_min";
     public static final String MAX_FREQ_PREF = "pref_freq_max";
+    public static final String CD_MAX_FREQ_PREF = "pref_cardock_freq_max";
     public static final String SO_MAX_FREQ_PREF = "pref_screenoff_freq_max";
     public static final String FREQ_LIST_FILE = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";
     public static final String FREQ_MAX_FILE = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
@@ -62,12 +63,14 @@ public class CPUActivity extends PreferenceActivity implements
     private String mGovernorFormat;
     private String mMinFrequencyFormat;
     private String mMaxFrequencyFormat;
+    private String mMaxCdFrequencyFormat;
     private String mMaxSoFrequencyFormat;
 
     private Preference mCurFrequencyPref;
     private ListPreference mGovernorPref;
     private ListPreference mMinFrequencyPref;
     private ListPreference mMaxFrequencyPref;
+    private ListPreference mMaxCdFrequencyPref;
     private ListPreference mMaxSoFrequencyPref;
 
     private class CurCPUThread extends Thread {
@@ -106,6 +109,7 @@ public class CPUActivity extends PreferenceActivity implements
         mGovernorFormat = getString(R.string.cpu_governors_summary);
         mMinFrequencyFormat = getString(R.string.cpu_min_freq_summary);
         mMaxFrequencyFormat = getString(R.string.cpu_max_freq_summary);
+        mMaxCdFrequencyFormat = getString(R.string.cardock_cpu_max_freq_summary);
         mMaxSoFrequencyFormat = getString(R.string.screenoff_cpu_max_freq_summary);
 
         String[] availableGovernors = readOneLine(GOVERNORS_LIST_FILE).split(" ");
@@ -181,6 +185,15 @@ public class CPUActivity extends PreferenceActivity implements
             mMaxFrequencyPref.setEnabled(false);
         }
 	
+        temp = prefs.getString(CD_MAX_FREQ_PREF, null);
+
+        mMaxCdFrequencyPref = (ListPreference) PrefScreen.findPreference(CD_MAX_FREQ_PREF);
+        mMaxCdFrequencyPref.setEntryValues(availableFrequencies);
+        mMaxCdFrequencyPref.setEntries(frequencies);
+        mMaxCdFrequencyPref.setValue(temp);
+        mMaxCdFrequencyPref.setSummary(String.format(mMaxCdFrequencyFormat, toMHz(temp)));
+        mMaxCdFrequencyPref.setOnPreferenceChangeListener(this);
+
         temp = prefs.getString(SO_MAX_FREQ_PREF, null);
 
         mMaxSoFrequencyPref = (ListPreference) PrefScreen.findPreference(SO_MAX_FREQ_PREF);
@@ -203,12 +216,16 @@ public class CPUActivity extends PreferenceActivity implements
     @Override
     public void onResume() {
         String temp;
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         super.onResume();
 
-        temp = readOneLine(FREQ_MAX_FILE);
-        mMaxFrequencyPref.setValue(temp);
-        mMaxFrequencyPref.setSummary(String.format(mMaxFrequencyFormat, toMHz(temp)));
+        temp = prefs.getString(MAX_FREQ_PREF, null);
+        if (temp == null) {
+            temp = readOneLine(FREQ_MAX_FILE);
+            mMaxFrequencyPref.setValue(temp);
+            mMaxFrequencyPref.setSummary(String.format(mMaxFrequencyFormat, toMHz(temp)));
+        }
 
         temp = readOneLine(FREQ_MIN_FILE);
         mMinFrequencyPref.setValue(temp);
@@ -232,7 +249,15 @@ public class CPUActivity extends PreferenceActivity implements
         String fname = "";
 
         if (newValue != null) {
-            if (preference == mGovernorPref) {
+            if (preference == mMaxCdFrequencyPref) {
+                mMaxCdFrequencyPref.setSummary(String.format(mMaxCdFrequencyFormat,
+                        toMHz((String) newValue)));
+                return true;
+            } else if (preference == mMaxSoFrequencyPref) {
+                mMaxSoFrequencyPref.setSummary(String.format(mMaxSoFrequencyFormat,
+                        toMHz((String) newValue)));
+                return true;
+            } else if (preference == mGovernorPref) {
                 fname = GOVERNOR;
             } else if (preference == mMinFrequencyPref) {
                 fname = FREQ_MIN_FILE;
