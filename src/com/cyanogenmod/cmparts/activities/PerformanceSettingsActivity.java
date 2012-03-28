@@ -406,6 +406,7 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
 
         if (preference == mLowMemKillPref) {
             if (newValue != null) {
+                SystemProperties.set(LOWMEMKILL_PROP, (String)newValue);
                 CPUActivity.writeOneLine(LOWMEMKILL_RUN_FILE, (String)newValue);
                 return true;
             }
@@ -420,6 +421,7 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
 
         if (preference == mSdReadAheadPref) {
             if (newValue != null) {
+                SystemProperties.set(SDCARD_PROP, (String)newValue);
                 CPUActivity.writeOneLine(SDCARD_RUN_FILE, (String)newValue);
                 return true;
             }
@@ -427,6 +429,7 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
 
         if (preference == mKSMSleepPref) {
             if (newValue != null) {
+                SystemProperties.set(KSM_SLEEP_PROP, (String)newValue);
                 CPUActivity.writeOneLine(KSM_SLEEP_RUN_FILE, (String)newValue);
                 return true;
             }
@@ -434,6 +437,7 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
 
         if (preference == mKSMScanPref) {
             if (newValue != null) {
+                SystemProperties.set(KSM_SCAN_PROP, (String)newValue);
                 CPUActivity.writeOneLine(KSM_SCAN_RUN_FILE, (String)newValue);
                 return true;
             }

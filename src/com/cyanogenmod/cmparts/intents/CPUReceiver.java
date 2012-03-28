@@ -41,12 +41,6 @@ public class CPUReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context ctx, Intent intent) {
-        int uiMode;
-        uiMode = ((UiModeManager)ctx.getSystemService(Context.UI_MODE_SERVICE)).getCurrentModeType();
-        Log.w(TAG, "mode: " + uiMode);
-
-        configureSDCARD(ctx);
-        configureLOWMEMKILL(ctx);
 
         if (intent.getAction().equals(Intent.ACTION_POWER_CONNECTED) &&
                 intent.getAction().equals(Intent.ACTION_BATTERY_CHANGED) &&
@@ -70,16 +64,6 @@ public class CPUReceiver extends BroadcastReceiver {
             configureCPU(ctx);
         } else {
             SystemProperties.set(CPU_SETTINGS_PROP, "false");
-        }
-
-        if (CPUActivity.fileExists(PerformanceSettingsActivity.KSM_RUN_FILE)) {
-            if (SystemProperties.getBoolean(KSM_SETTINGS_PROP, false) == false
-                    && intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-                SystemProperties.set(KSM_SETTINGS_PROP, "true");
-                configureKSM(ctx);
-            } else {
-                SystemProperties.set(KSM_SETTINGS_PROP, "false");
-            }
         }
 
     }
@@ -178,32 +162,4 @@ public class CPUReceiver extends BroadcastReceiver {
         }
     }
 
-    private void configureSDCARD(Context ctx) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
-    
-        CPUActivity.writeOneLine(PerformanceSettingsActivity.SDCARD_RUN_FILE, prefs.getString(PerformanceSettingsActivity.SDCARD_PREF,
-PerformanceSettingsActivity.SDCARD_PREF_DEFAULT));
-        Log.d(TAG, "SdCard settings restored.");
-    }
-
-    private void configureLOWMEMKILL(Context ctx) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
-    
-        CPUActivity.writeOneLine(PerformanceSettingsActivity.LOWMEMKILL_RUN_FILE, prefs.getString(PerformanceSettingsActivity.LOWMEMKILL_PREF,
-PerformanceSettingsActivity.LOWMEMKILL_PREF_DEFAULT));
-        Log.d(TAG, "LowMemKill settings restored.");
-    }
-
-    private void configureKSM(Context ctx) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
-
-        boolean ksm = prefs.getBoolean(PerformanceSettingsActivity.KSM_PREF, false);
-
-        CPUActivity.writeOneLine(PerformanceSettingsActivity.KSM_SLEEP_RUN_FILE, prefs.getString(PerformanceSettingsActivity.KSM_SLEEP_PREF,
-                                 PerformanceSettingsActivity.KSM_SLEEP_PREF_DEFAULT));
-        CPUActivity.writeOneLine(PerformanceSettingsActivity.KSM_SCAN_RUN_FILE, prefs.getString(PerformanceSettingsActivity.KSM_SCAN_PREF,
-                                 PerformanceSettingsActivity.KSM_SCAN_PREF_DEFAULT));
-        CPUActivity.writeOneLine(PerformanceSettingsActivity.KSM_RUN_FILE, ksm ? "1" : "0");
-        Log.d(TAG, "KSM settings restored.");
-    }
 }
