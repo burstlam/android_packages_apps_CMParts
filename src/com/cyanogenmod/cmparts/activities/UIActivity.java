@@ -152,7 +152,8 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
             mShowPowerSaver
                     .setSummary(R.string.summary_show_power_saver);
         }
-        mShowPowerSaver.setChecked(powerSaverVal != 0);
+        mShowPowerSaver.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.POWER_DIALOG_SHOW_POWER_SAVER, 0) == 1);
 
         mShowScreenShot = (CheckBoxPreference) findPreference(PREF_SCREENSHOT);
         mShowScreenShot.setChecked(Settings.System.getInt(getContentResolver(),
