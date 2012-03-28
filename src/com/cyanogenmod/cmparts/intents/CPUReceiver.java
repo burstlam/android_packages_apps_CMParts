@@ -17,9 +17,7 @@
 package com.cyanogenmod.cmparts.intents;
 
 import com.cyanogenmod.cmparts.activities.CPUActivity;
-import com.cyanogenmod.cmparts.activities.PerformanceSettingsActivity;
 
-import android.app.UiModeManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -54,6 +52,12 @@ public class CPUReceiver extends BroadcastReceiver {
                    intent.getAction().equals(Intent.ACTION_POWER_DISCONNECTED) &&
                    !intent.getAction().equals(Intent.ACTION_BATTERY_LOW)) {
                 setScreenOffCPU(ctx, true);
+        } else if (intent.getAction().equals(Intent.ACTION_DOCK_EVENT)) {
+            int state = intent.getIntExtra(Intent.EXTRA_DOCK_STATE, Intent.EXTRA_DOCK_STATE_UNDOCKED);
+            if (state == Intent.EXTRA_DOCK_STATE_CAR)
+                setCarDockCPU(ctx, true);
+            else if (state == Intent.EXTRA_DOCK_STATE_UNDOCKED)
+                setCarDockCPU(ctx, false);
         } else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON) &&
                    intent.getAction().equals(Intent.ACTION_POWER_DISCONNECTED) &&
                    !intent.getAction().equals(Intent.ACTION_BATTERY_LOW)) {
@@ -161,5 +165,5 @@ public class CPUReceiver extends BroadcastReceiver {
             Log.d(TAG, "CPU settings restored.");
         }
     }
-
 }
+
