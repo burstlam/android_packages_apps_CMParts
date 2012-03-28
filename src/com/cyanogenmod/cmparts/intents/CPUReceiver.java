@@ -48,21 +48,22 @@ public class CPUReceiver extends BroadcastReceiver {
         configureSDCARD(ctx);
         configureLOWMEMKILL(ctx);
 
-        if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
-            setScreenOffCPU(ctx, true);
-        } else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
-            if (uiMode == Configuration.UI_MODE_TYPE_CAR) {
-                if (!setCarDockCPU(ctx, true))
-        setScreenOffCPU(ctx, false);
-            } else {
+        if (intent.getAction().equals(Intent.ACTION_POWER_CONNECTED) &&
+                intent.getAction().equals(Intent.ACTION_BATTERY_CHANGED) &&
+                   !intent.getAction().equals(Intent.ACTION_BATTERY_LOW)) {
+                setChargeCPU(ctx);
+        } else if (intent.getAction().equals(Intent.ACTION_POWER_DISCONNECTED) &&
+                intent.getAction().equals(Intent.ACTION_BATTERY_CHANGED) &&
+                   intent.getAction().equals(Intent.ACTION_BATTERY_LOW)) {
+                setBatlowCPU(ctx);
+        } else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF) &&
+                   intent.getAction().equals(Intent.ACTION_POWER_DISCONNECTED) &&
+                   !intent.getAction().equals(Intent.ACTION_BATTERY_LOW)) {
+                setScreenOffCPU(ctx, true);
+        } else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON) &&
+                   intent.getAction().equals(Intent.ACTION_POWER_DISCONNECTED) &&
+                   !intent.getAction().equals(Intent.ACTION_BATTERY_LOW)) {
                 setScreenOffCPU(ctx, false);
-            }
-        } else if (intent.getAction().equals(Intent.ACTION_DOCK_EVENT)) {
-            int state = intent.getIntExtra(Intent.EXTRA_DOCK_STATE, Intent.EXTRA_DOCK_STATE_UNDOCKED);
-            if (state == Intent.EXTRA_DOCK_STATE_CAR)
-                setCarDockCPU(ctx, true);
-            else if (state == Intent.EXTRA_DOCK_STATE_UNDOCKED)
-                setCarDockCPU(ctx, false);
         } else if (SystemProperties.getBoolean(CPU_SETTINGS_PROP, false) == false
                 && intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
             SystemProperties.set(CPU_SETTINGS_PROP, "true");
@@ -117,6 +118,24 @@ public class CPUReceiver extends BroadcastReceiver {
             }
         }
         return true;
+    }
+
+    private void setChargeCPU(Context ctx) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+        String maxChFrequency = prefs.getString(CPUActivity.CH_MAX_FREQ_PREF, null);
+            if (maxChFrequency != null) {
+                CPUActivity.writeOneLine(CPUActivity.FREQ_MAX_FILE, maxChFrequency);
+                Log.i(TAG, "Charging on  max CPU freq set");
+            }
+    }
+
+    private void setBatlowCPU(Context ctx) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+        String maxBatFrequency = prefs.getString(CPUActivity.BAT_MAX_FREQ_PREF, null);
+            if (maxBatFrequency != null) {
+                CPUActivity.writeOneLine(CPUActivity.FREQ_MAX_FILE, maxBatFrequency);
+                Log.i(TAG, "Low battery on  max CPU freq set");
+            }
     }
 
     private void configureCPU(Context ctx) {

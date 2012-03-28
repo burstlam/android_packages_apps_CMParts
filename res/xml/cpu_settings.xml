@@ -19,6 +19,12 @@
   <ListPreference android:key="pref_screenoff_freq_max" android:dialogTitle="@string/screenoff_cpu_max_freq_title"
                   android:title="@string/screenoff_cpu_max_freq_title" android:summary="Maximum screen off CPU frequency" />
 
+  <ListPreference android:key="pref_charger_freq_max" android:dialogTitle="@string/charger_cpu_max_freq_title"
+                  android:title="@string/charger_cpu_max_freq_title" android:summary="Maximum Charging CPU frequency" />
+
+  <ListPreference android:key="pref_battery_freq_max" android:dialogTitle="@string/battery_cpu_max_freq_title"
+                  android:title="@string/battery_cpu_max_freq_title" android:summary="Maximum Low Battery CPU frequency" />
+
   <ListPreference android:key="pref_cardock_freq_max" android:dialogTitle="@string/cardock_cpu_max_freq_title"
                   android:title="@string/cardock_cpu_max_freq_title" android:summary="Maximum car dock CPU frequency" />
 

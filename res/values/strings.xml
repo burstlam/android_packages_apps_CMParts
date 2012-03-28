@@ -842,6 +842,10 @@
     <string name="screenoff_cpu_max_freq_summary">Maximum screen off CPU frequency\nCurrently set to: %s</string>
     <string name="cardock_cpu_max_freq_title">Max car dock CPU freq</string>
     <string name="cardock_cpu_max_freq_summary">Maximum car dock CPU frequency\nCurrently set to: %s</string>
+    <string name="charger_cpu_max_freq_title">Max Charging CPU freq</string>
+    <string name="charger_cpu_max_freq_summary">Maximum Charging CPU frequency\nCurrently set to: %s</string>
+    <string name="battery_cpu_max_freq_title">Max LowBat CPU freq</string>
+    <string name="battery_cpu_max_freq_summary">Maximum Low Battery CPU frequency\nCurrently set to: %s</string>
     <string name="cpu_set_on_boot">Set on boot</string>
     <string name="cpu_set_on_boot_summary">Restore CPU settings on boot</string>
 
