@@ -539,8 +539,12 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
     };
 
     private int getClockColor() {
-        return Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_CLOCKCOLOR, 1);
+        try {
+            return Settings.System.getInt(getContentResolver(),
+                     Settings.System.STATUS_BAR_CLOCKCOLOR);
+        } catch (SettingNotFoundException e) {
+            return -16777216;
+        }
     }
 
     ColorPickerDialog.OnColorChangedListener mClockColorListener =

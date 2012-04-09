@@ -44,11 +44,11 @@
                   </PreferenceScreen>
         </PreferenceCategory>
 
-    <!-- General settings
+    <!-- General settings -->
     <PreferenceCategory android:key="general_category"
         android:title="@string/general_title">
 
-        CMStats
+        <!-- CMStats -->
         <PreferenceScreen android:key="cmstats_settings"
             android:title="@string/cmstats_title" android:summary="@string/cmstats_summary">
             <intent android:action="android.intent.action.MAIN"
@@ -57,7 +57,7 @@
         </PreferenceScreen>
 
 
-        Update Notifications
+        <!-- Update Notifications -->
         <PreferenceScreen android:key="updatenotify_settings"
             android:title="@string/updatenotify_title" android:summary="@string/updatenotify_summary">
             <intent android:action="android.intent.action.MAIN"
@@ -65,7 +65,7 @@
                 android:targetClass="com.cyanogenmod.updatenotify.MainActivity" />
         </PreferenceScreen>
 
-        Change Log
+        <!-- Change Log -->
         <PreferenceScreen android:key="changelog"
             android:title="@string/changelog_title">
             <intent android:action="android.intent.action.MAIN"
@@ -73,6 +73,5 @@
                 android:targetClass="com.cyanogenmod.cmparts.activities.ChangeLog" />
         </PreferenceScreen>
     </PreferenceCategory>
- -->
 
 </PreferenceScreen>
