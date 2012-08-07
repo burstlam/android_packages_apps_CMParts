@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Display Settings -->
-    <PreferenceScreen android:key="display_settings"
-        android:title="@string/display_settings_title_head"
-        android:summary="@string/display_settings_summary_head">
-        <intent android:action="android.intent.action.MAIN"
-            android:targetPackage="com.cyanogenmod.cmparts"
-            android:targetClass="com.cyanogenmod.cmparts.activities.DisplayActivity" />
-    </PreferenceScreen>
+    <!-- Power saver settings -->
 
-    <!-- Sound settings -->
-    <PreferenceScreen android:key="sound_settings"
-        android:title="@string/sound_settings_title_head" android:summary="@string/sound_settings_summary_head">
+    <PreferenceScreen android:key="powersaver_settings"
+        android:title="@string/powersaver_settings_title_head"
+        android:summary="@string/powersaver_settings_summary_head">
         <intent android:action="android.intent.action.MAIN"
             android:targetPackage="com.cyanogenmod.cmparts"
-            android:targetClass="com.cyanogenmod.cmparts.activities.SoundActivity" />
+            android:targetClass="com.cyanogenmod.cmparts.activities.PowerSaverActivity" />
     </PreferenceScreen>
 
     <!-- Performance settings -->
@@ -25,16 +18,6 @@
         <intent android:action="android.intent.action.MAIN"
             android:targetPackage="com.cyanogenmod.cmparts"
             android:targetClass="com.cyanogenmod.cmparts.activities.PerformanceSettingsActivity" />
-    </PreferenceScreen>
-
-     <!-- Power saver settings -->
-
-    <PreferenceScreen android:key="powersaver_settings"
-        android:title="@string/powersaver_settings_title_head"
-        android:summary="@string/powersaver_settings_summary_head">
-        <intent android:action="android.intent.action.MAIN"
-            android:targetPackage="com.cyanogenmod.cmparts"
-            android:targetClass="com.cyanogenmod.cmparts.activities.PowerSaverActivity" />
     </PreferenceScreen>
 
     <!-- Interface Settings -->
@@ -52,6 +35,23 @@
         <intent android:action="android.intent.action.MAIN"
             android:targetPackage="com.cyanogenmod.cmparts"
             android:targetClass="com.cyanogenmod.cmparts.activities.LockscreenActivity" />
+    </PreferenceScreen>
+
+    <!-- Display Settings -->
+    <PreferenceScreen android:key="display_settings"
+        android:title="@string/display_settings_title_head"
+        android:summary="@string/display_settings_summary_head">
+        <intent android:action="android.intent.action.MAIN"
+            android:targetPackage="com.cyanogenmod.cmparts"
+            android:targetClass="com.cyanogenmod.cmparts.activities.DisplayActivity" />
+    </PreferenceScreen>
+
+    <!-- Sound settings -->
+    <PreferenceScreen android:key="sound_settings"
+        android:title="@string/sound_settings_title_head" android:summary="@string/sound_settings_summary_head">
+        <intent android:action="android.intent.action.MAIN"
+            android:targetPackage="com.cyanogenmod.cmparts"
+            android:targetClass="com.cyanogenmod.cmparts.activities.SoundActivity" />
     </PreferenceScreen>
 
     <!-- Input Settings -->
