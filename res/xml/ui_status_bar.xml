@@ -53,7 +53,7 @@
                 <Preference android:key="pref_status_bar_clockcolor"
                        android:title="@string/ui_status_bar_clockcolor_title"
                        android:summary="@string/ui_status_bar_clockcolor_summary"
-                       android:defaultValue="ffffffff" />
+                       android:defaultValue="-1" />
 		<ListPreference android:key="pref_status_bar_am_pm"
 			android:dialogTitle="@string/ui_status_bar_am_pm_title"
 			android:title="@string/ui_status_bar_am_pm_title"
@@ -103,7 +103,7 @@
 			android:dialogTitle="@string/ui_status_bar_carrier_label_custom_title"
 			android:title="@string/ui_status_bar_carrier_label_custom_title"
 			android:summary="@string/ui_status_bar_carrier_label_custom_summary"
-			android:defaultValue="CyanogenMod 7" />
+			android:defaultValue="burstlam@HIAPK" />
 	</PreferenceCategory>
 
 </PreferenceScreen>

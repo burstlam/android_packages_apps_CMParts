@@ -330,16 +330,16 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
             return true;
         } else if (preference == mTransparentStatusBarPref) {
             final CMDProcessor cmd = new CMDProcessor();
-            int transparentStatusBarPref = Integer.parseInt(String.valueOf(newValue));
+            final int transparentStatusBarPref = Integer.parseInt(String.valueOf(newValue));
             mStatusBarColor.setEnabled(transparentStatusBarPref == 2);
-            Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_STATUS_BAR,
-                    transparentStatusBarPref);
             new AlertDialog.Builder(this)
             .setTitle(R.string.reboot_notice_title)
             .setMessage(R.string.reboot_notice_summary)
             .setPositiveButton(com.android.internal.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                              cmd.su.runWaitFor("pkill -TERM -f  com.android.systemui");
+                             Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_STATUS_BAR,
+                                       transparentStatusBarPref);
                     }
             })
             .setNegativeButton(com.android.internal.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -350,7 +350,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
             return true;
         } else if (preference == mTransparentNotificationBackgroundPref) {
             final CMDProcessor cmd = new CMDProcessor();
-            int transparentNotificationBackgroundPref = Integer.parseInt(String.valueOf(newValue));
+            final int transparentNotificationBackgroundPref = Integer.parseInt(String.valueOf(newValue));
             if (transparentNotificationBackgroundPref == 5) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
                 intent.setType("image/*");
@@ -384,18 +384,19 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 }
             }
             mNotificationBackgroundColor.setEnabled(transparentNotificationBackgroundPref == 2);
-            Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_NOTIFICATION_BACKGROUND,
-                    transparentNotificationBackgroundPref);
             new AlertDialog.Builder(this)
             .setTitle(R.string.reboot_notice_title)
             .setMessage(R.string.reboot_notice_summary)
             .setPositiveButton(com.android.internal.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                              cmd.su.runWaitFor("pkill -TERM -f  com.android.systemui");
+                             Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_NOTIFICATION_BACKGROUND,
+                                   transparentNotificationBackgroundPref);
                     }
             })
             .setNegativeButton(com.android.internal.R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
+                    return;
                     }
              })
             .show();
@@ -475,6 +476,10 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
             SBColorPickerDialog sbcp = new SBColorPickerDialog(this, mStatusBarColorListener, getStatusBarColor());
             sbcp.show();
             return true;
+	    } else if (preference == mStatusBarClockColor) {
+            ColorPickerDialog cp = new ColorPickerDialog(this, mClockColorListener, getClockColor());
+            cp.show();
+            return true;
         } else if (preference == mNotificationBackgroundColor) {
             NBColorPickerDialog nbcp = new NBColorPickerDialog(this, mNotificationBackgroundColorListener, getNotificationBackgroundColor());
             nbcp.show();
@@ -492,21 +497,6 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         }
         return false;
     }
-
-    private OnColorChangedListener mColorChangedListener = new OnColorChangedListener() {
-        @Override
-        public void colorChanged(int color) {
-            String colorString = String.format("#%02x%02x%02x", Color.red(color),
-                    Color.green(color), Color.blue(color));
-            Settings.System.putString(getContentResolver(),
-                    Settings.System.STATUS_BAR_BATTERY_COLOR, colorString);
-        }
-
-        @Override
-        public void colorUpdate(int color) {
-            // no-op
-        }
-    };
 
     private int getStatusBarColor() {
         return Settings.System.getInt(getContentResolver(),
@@ -543,7 +533,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
             return Settings.System.getInt(getContentResolver(),
                      Settings.System.STATUS_BAR_CLOCKCOLOR);
         } catch (SettingNotFoundException e) {
-            return -16777216;
+            return -1;
         }
     }
 
@@ -555,6 +545,21 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
             }
             public void colorUpdate(int color) {
             }
+    };
+
+    private OnColorChangedListener mColorChangedListener = new OnColorChangedListener() {
+        @Override
+        public void colorChanged(int color) {
+            String colorString = String.format("#%02x%02x%02x%02x", Color.alpha(color), Color.red(color),
+                    Color.green(color), Color.blue(color));
+            Settings.System.putString(getContentResolver(),
+                    Settings.System.STATUS_BAR_BATTERY_COLOR, colorString);
+        }
+
+        @Override
+        public void colorUpdate(int color) {
+            // no-op
+        }
     };
 
     @Override
@@ -571,6 +576,5 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
             break;
         }
     }
-
 
 }
