@@ -5,31 +5,6 @@
 	<PreferenceCategory android:key="general_category"
 		android:title="@string/general_title">
 
-		<!-- Airplane Mode toggle -->
-               <CheckBoxPreference android:key="show_airplane_mode"
-                        android:title="@string/title_show_airplane_mode" />
-
-		<!-- ScreenShot toggle -->
-               <CheckBoxPreference android:key="show_screenshot"
-                        android:title="@string/title_show_screenshot" />
-
-		<!-- Powersaver toggle -->
-               <CheckBoxPreference android:key="show_power_saver"
-                        android:title="@string/title_show_power_saver" />
-
-		<!-- Profile toggle -->
-               <CheckBoxPreference android:key="show_profile"
-                        android:title="@string/title_show_profile" />
-
-		<!-- Profile toggle -->
-               <CheckBoxPreference android:key="show_silent"
-                        android:title="@string/title_show_silent" />
-
-		<!-- Power prompt -->
-		<CheckBoxPreference android:key="power_dialog_prompt"
-			android:title="@string/pref_power_prompt_title" android:summary="@string/pref_power_prompt_summary"
-			android:defaultValue="true" />
-
 		<PreferenceScreen android:key="ui_power_widget_settings_menu"
 			android:title="@string/title_expanded_widget">
 			<intent android:action="android.intent.action.MAIN"
@@ -51,7 +26,38 @@
 				android:targetPackage="com.cyanogenmod.cmparts"
 				android:targetClass="com.cyanogenmod.cmparts.activities.led.NotificationActivity" />
 		</PreferenceScreen>
+	</PreferenceCategory>
 
+        <PreferenceCategory android:title="@string/ui_power_menu_title">
+
+		<!-- Power prompt -->
+		<CheckBoxPreference android:key="power_dialog_prompt"
+			android:title="@string/pref_power_prompt_title" android:summary="@string/pref_power_prompt_summary"
+			android:defaultValue="true" />
+
+		<!-- Airplane Mode toggle -->
+               <CheckBoxPreference android:key="show_airplane_mode"
+                        android:title="@string/title_show_airplane_mode" />
+
+		<!-- ScreenShot toggle -->
+               <CheckBoxPreference android:key="show_screenshot"
+                        android:title="@string/title_show_screenshot" />
+
+		<!-- Powersaver toggle -->
+               <CheckBoxPreference android:key="show_power_saver"
+                        android:title="@string/title_show_power_saver" />
+
+		<!-- Profile toggle -->
+               <CheckBoxPreference android:key="show_profile"
+                        android:title="@string/title_show_profile" />
+
+		<!-- Profile toggle -->
+               <CheckBoxPreference android:key="show_silent"
+                        android:title="@string/title_show_silent" />
+
+    </PreferenceCategory>
+
+	<PreferenceCategory android:title="@string/ui_overscroll_title">
 		<!-- Render effect -->
 		<ListPreference android:key="pref_render_effect"
 			android:dialogTitle="@string/pref_render_effect_title" android:title="@string/pref_render_effect_title"
@@ -63,9 +69,7 @@
 
 		<CheckBoxPreference android:key="pref_share_screenshot"
 			android:title="@string/pref_share_screenshot_title" android:summary="@string/pref_share_screenshot_summary" />
-	</PreferenceCategory>
 
-	<PreferenceCategory android:title="@string/ui_overscroll_title">
 		<ListPreference android:key="pref_overscroll_effect"
 			android:dialogTitle="@string/pref_overscroll_title" android:title="@string/pref_overscroll_title"
 			android:summary="@string/pref_overscroll_summary" android:entries="@array/pref_overscroll_effect_entries"

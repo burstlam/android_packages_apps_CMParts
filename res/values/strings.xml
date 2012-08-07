@@ -958,6 +958,7 @@
     <string name="lockscreen_style_entry_honeycomb">Honeycomb</string>
 
     <!-- Power Menu items -->
+    <string name="ui_power_menu_title">Power Menu Switches</string>
     <string name="title_show_screenshot">Show ScreenShot in power menu</string>
     <string name="title_show_power_saver">Show Powersaver Toggle in power menu</string>
     <string name="title_show_airplane_mode">Show Airplane Mode Toggle in power menu</string>
