@@ -158,6 +158,9 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         mStatusBarClock = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_CLOCK);
         mStatusBarCenterClock = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_CENTERCLOCK);
         mStatusBarClockColor = (Preference) prefSet.findPreference(PREF_STATUS_BAR_CLOCKCOLOR);
+        int clockColor = Settings.System.getInt(getContentResolver(),
+                Settings.System.STATUS_BAR_CLOCKCOLOR, 0);
+        mStatusBarClockColor.setSummary(Integer.toHexString(clockColor));
         mStatusBarClockColor.setOnPreferenceChangeListener(this);
         mStatusBarColor = (Preference) prefSet.findPreference(PREF_STATUS_BAR_COLOR);
         mStatusBarColor.setOnPreferenceChangeListener(this);
@@ -191,10 +194,6 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
             }
         } catch (SettingNotFoundException e) {
         }
-
-        int clockColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_CLOCKCOLOR, 0);
-        mStatusBarClockColor.setSummary(Integer.toHexString(clockColor));
 
         int transparentStatusBarPref = Settings.System.getInt(getContentResolver(),
                 Settings.System.TRANSPARENT_STATUS_BAR, 0);
@@ -486,10 +485,6 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         } else if (preference == mStatusBarColor) {
             SBColorPickerDialog sbcp = new SBColorPickerDialog(this, mStatusBarColorListener, getStatusBarColor());
             sbcp.show();
-            return true;
-	    } else if (preference == mStatusBarClockColor) {
-            ColorPickerDialog cp = new ColorPickerDialog(this, mClockColorListener, getClockColor());
-            cp.show();
             return true;
         } else if (preference == mNotificationBackgroundColor) {
             NBColorPickerDialog nbcp = new NBColorPickerDialog(this, mNotificationBackgroundColorListener, getNotificationBackgroundColor());
